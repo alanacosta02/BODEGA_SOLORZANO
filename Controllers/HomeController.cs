@@ -23,7 +23,7 @@ namespace BODEGA_SOLORZANO.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly logUsuario _instancia = new logUsuario();
+        public static logUsuario Instancia = new ();
 
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)
@@ -85,6 +85,66 @@ namespace BODEGA_SOLORZANO.Controllers
             return RedirectToAction("Index");
         }
 
+        [PermisosRol(entRol.Compras)]
+        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
+        public IActionResult Compras()
+        {
+            // Almacenar objeto en la sesión
+            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
+            HttpContext.Session.SetObject("Usuario", cliente);
+
+            // Recuperar objeto de la sesión
+            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
+
+            if (usuarioGuardado != null)
+            {
+                ViewBag.Usuario = usuarioGuardado.UserName;
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [PermisosRol(entRol.Ventas)]
+        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
+        public IActionResult Ventas()
+        {
+            // Almacenar objeto en la sesión
+            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
+            HttpContext.Session.SetObject("Usuario", cliente);
+
+            // Recuperar objeto de la sesión
+            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
+
+            if (usuarioGuardado != null)
+            {
+                ViewBag.Usuario = usuarioGuardado.UserName;
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [PermisosRol(entRol.Pedidos)]
+        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
+        public IActionResult Pedidos()
+        {
+            // Almacenar objeto en la sesión
+            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
+            HttpContext.Session.SetObject("Usuario", cliente);
+
+            // Recuperar objeto de la sesión
+            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
+
+            if (usuarioGuardado != null)
+            {
+                ViewBag.Usuario = usuarioGuardado.UserName;
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
         public ActionResult SinPermisos()
         {
@@ -132,12 +192,9 @@ namespace BODEGA_SOLORZANO.Controllers
 
                     if (objCliente.Rol == entRol.Administrador)
                     {
-                        return RedirectToAction("Admin");
+                        return RedirectToAction("Index");
                     }
-                    if (objCliente.Rol == entRol.Jefe)
-                    {
-                        return RedirectToAction("Jefe");
-                    }
+
                 }
                 else
                 {

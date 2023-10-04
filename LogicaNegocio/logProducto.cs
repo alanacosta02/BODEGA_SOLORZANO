@@ -5,12 +5,8 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
 {
     public class logProducto
     {
-        private static readonly logProducto _instancia = new logProducto();
+        public static logProducto Instancia = new ();
 
-        public static logProducto Instancia
-        {
-            get { return _instancia; }
-        }
         #region CRUD
         public bool CrearProducto(entProducto prod)
         {

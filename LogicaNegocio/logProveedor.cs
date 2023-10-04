@@ -5,12 +5,8 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
 {
     public class logProveedor
     {
-        private static readonly logProveedor _instancia = new logProveedor();
+        public static logProveedor Instancia = new ();
 
-        public static logProveedor Instancia
-        {
-            get { return _instancia; }
-        }
 
         #region CRUD
         public bool CrearProveedor(entProveedor pro)

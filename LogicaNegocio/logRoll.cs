@@ -10,11 +10,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class logRoll
     {
-        private static readonly logRoll _instancia = new logRoll();
-        public static logRoll Instancia
-        {
-            get { return _instancia; }
-        }
+        public static logRoll Instancia = new ();
 
         public List<entRoll> ListarRol()
         {

@@ -6,11 +6,8 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProveedor
     {
-        private static readonly datProveedor _instance = new datProveedor();
-        public static datProveedor Instancia
-        {
-            get { return _instance; }
-        }
+        public static datProveedor Instancia = new ();
+
 
         #region CRUD
         //Crear
@@ -20,7 +17,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool creado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spCrearProveedor", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@razonSocial", pro.RazonSocial);
@@ -52,7 +49,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entProveedor> list = new List<entProveedor>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarProveedor", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -85,7 +82,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool actualizado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spActualizarProveedor", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idProveedor", pro.IdProveedor);
@@ -118,7 +115,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool eliminado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spDeshabilitarProveedor", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idProveedor", idProveedor);
@@ -149,7 +146,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarProveedor", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Campo", busqueda);
@@ -183,7 +180,7 @@ namespace BODEGA_SOLORZANO.Datos
             entProveedor pro = new entProveedor();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarIdProveedor", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idProveedor", idProveedor);
@@ -209,7 +206,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entProveedor> list = new List<entProveedor>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spOrdenarProveedor", cn);
                 cmd.Parameters.AddWithValue("@orden", orden);
                 cmd.CommandType = CommandType.StoredProcedure;

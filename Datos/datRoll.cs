@@ -12,11 +12,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datRoll
     {
-        private static readonly datRoll _instancia = new datRoll();
-        public static datRoll Instancia
-        {
-            get { return _instancia; }
-        }
+        public static datRoll Instancia = new ();
 
         public List<entRoll> ListarRoll()
         {
@@ -24,7 +20,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entRoll> lista = new List<entRoll>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarRol", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();

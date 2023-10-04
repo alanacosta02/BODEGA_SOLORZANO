@@ -6,11 +6,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datCategoria
     {
-        private static readonly datCategoria _instance = new datCategoria();
-        public static datCategoria Instancia
-        {
-            get { return _instance; }
-        }
+        public static datCategoria Instancia = new ();
 
         #region CRUD
         //Crear
@@ -20,7 +16,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool creado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spCrearCategoria", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@nombre", cat.Nombre);
@@ -52,7 +48,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entCategoria> list = new List<entCategoria>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarCategoria", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -85,7 +81,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool actualizado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spActualizarCategoria", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idCategoria", cat.IdCategoria);
@@ -118,7 +114,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool eliminado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spDeshabilitarCategoria", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idCategoria", idCategoria);
@@ -149,7 +145,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarCategoria", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Campo", busqueda);
@@ -183,7 +179,7 @@ namespace BODEGA_SOLORZANO.Datos
             entCategoria cat = new entCategoria();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarIdCategoria", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idCategoria", idCategoria);
@@ -209,7 +205,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entCategoria> list = new List<entCategoria>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spOrdenarCategoria", cn);
                 cmd.Parameters.AddWithValue("@orden", orden);
                 cmd.CommandType = CommandType.StoredProcedure;

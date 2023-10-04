@@ -9,7 +9,7 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
     public enum entRol
     {
         // enum permite poner constantes listadas con nombre y valor
-        Administrador = 1, Jefe = 2
+        Administrador = 1, Jefe = 2, Compras = 3, Ventas = 4, Pedidos = 5
 
     }
     public class entRoll

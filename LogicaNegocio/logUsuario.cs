@@ -17,11 +17,7 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
     {
         private string errorMessage = string.Empty;
         
-        private static readonly logUsuario _instancia = new logUsuario();
-        public static logUsuario Instancia
-        {
-            get { return _instancia; }
-        }
+        public static logUsuario Instancia = new ();
 
         #region CRUD
         public bool CrearUsuario(entUsuario user, out List<string> lsErrores)
@@ -140,7 +136,7 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
                     }
                     else
                     {
-                        contra = Recursos.GetSHA256(contra);
+                        //contra = Recursos.GetSHA256(contra);
                         u = datUsuario.Instancia.IniciarSesion(dato, contra);
                         if (u != null)// El usuario existe
                         { 

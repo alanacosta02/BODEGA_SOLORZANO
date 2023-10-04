@@ -5,12 +5,8 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
 {
     public class logCategoria
     {
-        private static readonly logCategoria _instancia = new logCategoria();
+        public static logCategoria Instancia = new ();
 
-        public static logCategoria Instancia
-        {
-            get { return _instancia; }
-        }
 
         #region CRUD
         public bool CrearCategoria(entCategoria cat)

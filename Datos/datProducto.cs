@@ -9,11 +9,8 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProducto
     {
-        private static readonly datProducto _instancia = new datProducto();
-        public static datProducto Instancia
-        {
-            get { return _instancia; }
-        }
+        public static datProducto Instancia = new ();
+
 
         #region CRUD
         //Crear
@@ -23,7 +20,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool creado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spCrearProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@nombre", prod.Nombre);
@@ -60,7 +57,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entProducto> lista = new List<entProducto>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -107,7 +104,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool actualiza = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spActualizarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idproducto", Prod.IdProducto);
@@ -141,7 +138,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spEliminarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idProducto", id);
@@ -169,7 +166,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarProducto", cn);
                 cmd.Parameters.AddWithValue("@Campo", busqueda);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -217,7 +214,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spOrdenarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idCategoria", categoriaOrden);
@@ -258,7 +255,7 @@ namespace BODEGA_SOLORZANO.Datos
             entProducto Prod = new entProducto();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarProductoId", cn);
                 cmd.Parameters.AddWithValue("@idProducto", idProd);
                 cmd.CommandType = CommandType.StoredProcedure;

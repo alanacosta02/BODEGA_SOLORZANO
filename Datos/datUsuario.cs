@@ -14,11 +14,8 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datUsuario 
     {
-        private static readonly datUsuario _instance = new datUsuario();
-        public static datUsuario Instancia
-        {
-            get { return _instance; }
-        }
+        public static datUsuario Instancia = new ();
+
         #region CRUD
         //Crear
         public bool CrearUsuario(entUsuario Usu)
@@ -28,7 +25,7 @@ namespace BODEGA_SOLORZANO.Datos
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spCrearUsuario", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@dni", Usu.Dni);
@@ -65,7 +62,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entUsuario> lista = new List<entUsuario>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarUsuarios", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -109,7 +106,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entUsuario> lista = new List<entUsuario>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarAdministradores", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -157,7 +154,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool eliminado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spDeshabilitarUsuario", cn);
                 cmd.Parameters.AddWithValue("@idCuenta", id);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -182,7 +179,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool eliminado = false;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spHabilitarUsuario", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idCuenta", id);
@@ -210,11 +207,11 @@ namespace BODEGA_SOLORZANO.Datos
             entUsuario u = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spIniciarSesion", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@dato", campo);
-                cmd.Parameters.AddWithValue("@contra", contra);
+                cmd.Parameters.AddWithValue("@userName", campo);
+                cmd.Parameters.AddWithValue("@pass", contra);
                 cn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
@@ -223,14 +220,8 @@ namespace BODEGA_SOLORZANO.Datos
                         u = new entUsuario
                         {
                             Rol = (entRol)dr["idRol"],//Convertir (castearlo) a objeto de tipo entRol
-                            IdCuenta = Convert.ToInt32(dr["idCuenta"]),
-                            Dni = dr["dni"].ToString(),
-                            Telefono = dr["telefono"].ToString(),
-                            Correo = dr["correo"].ToString(),
                             UserName = dr["userName"].ToString(),
                             Activo = Convert.ToBoolean(dr["activo"]),
-                            FechaInicio = Convert.ToDateTime(dr["fechaInicio"]),
-                            FechaFin = Convert.ToDateTime(dr["fechaFin"]),
                
                         };
                     }
@@ -252,7 +243,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entUsuario> lista = new List<entUsuario>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarAdministrador", cn);
                 cmd.Parameters.AddWithValue("@Campo", dato);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -296,7 +287,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarUsuario", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@campo", campo);
@@ -342,7 +333,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entUsuario> lista = new List<entUsuario>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spOrdenarAdministrador", cn);
                 cmd.Parameters.AddWithValue("@orden", orden);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -386,7 +377,7 @@ namespace BODEGA_SOLORZANO.Datos
 
             try
             {
-                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                using (SqlConnection cn = Conexion.ObtenerConexion())
                 {
                     using (SqlCommand cmd = new SqlCommand("spCrearSesionUsuario", cn))
                     {
@@ -426,7 +417,7 @@ namespace BODEGA_SOLORZANO.Datos
             bool restablecer = false;
             try
             {
-                using (var cn = Conexion.Instancia.Conectar())
+                using (var cn = Conexion.ObtenerConexion())
                 {
                     using (var cmd = new SqlCommand("spRestablecerPassword", cn))
                     {

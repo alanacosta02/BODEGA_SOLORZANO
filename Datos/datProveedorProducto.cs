@@ -6,12 +6,8 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProveedorProducto
     {
-        private static datProveedorProducto _instancia = new datProveedorProducto();
+        public static datProveedorProducto Instancia = new ();
 
-        public static datProveedorProducto Instancia
-        {
-            get { return _instancia; }
-        }
 
         public List<entProveedorProducto> ListarProveedorProducto()
         {
@@ -20,7 +16,7 @@ namespace BODEGA_SOLORZANO.Datos
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarProveedorProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -68,7 +64,7 @@ namespace BODEGA_SOLORZANO.Datos
             List<entProveedorProducto> lista = new List<entProveedorProducto>();
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spListarProductoAdmin", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
@@ -121,7 +117,7 @@ namespace BODEGA_SOLORZANO.Datos
             SqlCommand cmd = null;
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
+                SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spBuscarProductoAdmin", cn);
                 cmd.Parameters.AddWithValue("@Campo", busqueda);
                 cmd.CommandType = CommandType.StoredProcedure;

@@ -58,7 +58,7 @@
 
 <div class="login-container">
     <h1>Iniciar Sesión</h1>
-    <form method="post" id="idLogin" action="/Home/VerificarAcceso" class="row g-3 needs-validation" novalidate>
+    <form method="post" id="idLogin" action="@Url.Action("VerificarAcceso", "Home")" class="row g-3 needs-validation" novalidate>
         @Html.AntiForgeryToken()
         <div>
             <label for="validationCustom01" class="form-label">Username</label>
@@ -87,75 +87,6 @@
     <br />
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-<script>
-    function encryptCredentials() {
-        var user = document.getElementById('validationCustom02').value;
-        var pass = document.getElementById('validationCustom03').value;
-
-        var encryptedUser = CryptoJS.SHA256(user).toString();
-        var encryptedPass = CryptoJS.SHA256(pass).toString();
-
-        document.getElementById('validationCustom02').value = encryptedUser;
-        document.getElementById('validationCustom03').value = encryptedPass;
-    }
-
-    document.getElementById('idLogin').addEventListener('submit', encryptCredentials);
-</script>
 
 
-<!-- ======= Footer ======= -->
-<footer id="footer" class="mt-5">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-info">
-                        <h3>Maderera Carocho</h3>
-                        <p>
-                            MZA. 1-A LOTE. 3 <br>
-                            Huanchaquito Alto<br><br>
-                            <strong>Telefono:</strong> +51 941042325 - +51 956535390<br>
-                            <strong>Correo:</strong> infomadereracarocho@gmail.com<br>
-                        </p>
-                        <div class="social-links mt-3">
-                            <a href="https://twitter.com/" class="twitter"><i class="bx bxl-twitter"></i></a>
-                            <a href="https://www.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
-                            <a href="https://www.instagram.com/" class="instagram"><i class="bx bxl-instagram"></i></a>
-                            <a href="https://pe.linkedin.com/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Menu de opciones</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/Home/Admin">Inicio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/Home/admin#about">Sobre</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/Home/admin#services">Servicios</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/Home/admin#portfolio">Portafolio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/Home/admin#team">Equipo</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/Home/admin#contact">Contacto</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>¡Contáctanos!</h4>
-                    <p>Deja tu correo electrónico y un asesor se pondrá en contacto contigo en un plazo máximo de 24 horas.</p>
-                    <form action="" method="post">
-                        @Html.AntiForgeryToken()
-                        <input type="email" name="email" placeholder="Tu correo electrónico" required>
-                        <input type="submit" value="Aceptar">
-                    </form>
-                </div>
-
-            </div>
-        </div>
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>MadereraCarocho</span></strong>. Todos los derechos reservados
-            </div>
-        </div>
-    </div>
-</footer><!-- End Footer -->

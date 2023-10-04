@@ -11,32 +11,20 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class Conexion
     {
-        private static readonly Conexion _instancia = new Conexion();
 
-        public static Conexion Instancia
+        private static readonly string? cadenaSQL;
+
+        static Conexion()
         {
-            get { return _instancia; }
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build();
+            cadenaSQL = builder.GetSection("ConnectionStrings:CadenaSQL").Value;
         }
 
-        public SqlConnection Conectar()
+        public static SqlConnection ObtenerConexion()
         {
-            SqlConnection cn = new SqlConnection();
-            try
-            {
-                //cn.ConnectionString = "Data Source =DESKTOP-K09GSCS\\SQLEXPRESS; Initial Catalog = BD_PRUEBAS_MADERERA; Integrated Security = true";
-                //cn.ConnectionString = "Data Source =DESKTOP-K09GSCS\\SQLEXPRESS; Initial Catalog = BD_PRUEBAS_MADERERA; Integrated Security = true";
-                cn.ConnectionString = "Data Source =database-server-1.cvfr9ma2ngux.us-east-2.rds.amazonaws.com; Initial Catalog = BoSolor; Integrated Security = true; User id= alan; Password = 2002";
-
-
-
-                cn.Open();
-                cn.Close();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Error al intentar conectarse al servidor");
-            }
-            return cn;
+            return new SqlConnection(cadenaSQL);
         }
     }
 }
