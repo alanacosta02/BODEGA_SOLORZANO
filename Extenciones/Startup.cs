@@ -15,7 +15,15 @@ namespace BODEGA_SOLORZANO.Extenciones
                     options.LoginPath = "/Account/Login"; // La ruta a la página de inicio de sesión
                 });
 
-            // ... más configuraciones ...
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            .AddCookie();
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

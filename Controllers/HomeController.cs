@@ -23,7 +23,7 @@ namespace BODEGA_SOLORZANO.Controllers
 {
     public class HomeController : Controller
     {
-        public static logUsuario Instancia = new ();
+        public static logUsuario Instancia = new();
 
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)
@@ -168,24 +168,20 @@ namespace BODEGA_SOLORZANO.Controllers
                 entUsuario objCliente = logUsuario.Instancia.IniciarSesion(user, pass);
                 if (objCliente != null)
                 {
-                    var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, objCliente.Correo),
-                // Puedes agregar más claims según necesites (por ejemplo, roles, etc.)
-            };
+                    //var claims = new List<Claim>
+                    //{
+                    //    new Claim(ClaimTypes.Name, objCliente.UserName),
+                    //    new Claim(ClaimTypes.Role, objCliente.Rol.ToString())
+                    //};
 
-                    var claimsIdentity = new ClaimsIdentity(
-                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    //var claimsIdentity = new ClaimsIdentity(
+                    //    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var authProperties = new AuthenticationProperties
-                    {
-                        // Puedes configurar propiedades adicionales del cookie aquí si es necesario
-                    };
 
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties);
+
+                    //await HttpContext.SignInAsync(
+                    //    CookieAuthenticationDefaults.AuthenticationScheme,
+                    //    new ClaimsPrincipal(claimsIdentity));
 
                     // Almacena el objeto de usuario en la sesión si lo necesitas
                     //HttpContext.Session.Set<entUsuario>("Usuario", objCliente);
@@ -314,7 +310,7 @@ namespace BODEGA_SOLORZANO.Controllers
         //    ViewBag.Error = mensaje;
         //    return View();
         //}
-        
+
         public async Task<IActionResult> CerrarSesion()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
