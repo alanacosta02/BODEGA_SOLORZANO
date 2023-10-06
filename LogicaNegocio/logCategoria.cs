@@ -13,25 +13,9 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
         {
             return datCategoria.Instancia.CrearCategoria(cat);
         }
-        public List<entCategoria> ListarCategoria(string dato, string orden)
+        public List<entCategoria> ListarCategoria()
         {
-            // Si el parámetro "dato" no está vacío, buscar Categoriaes por su nombre o correo electrónico.
-            if (!string.IsNullOrEmpty(dato))
-            {
-                return datCategoria.Instancia.BuscarCategoria(dato);
-            }
-
-            // Si el parámetro "orden" está vacío, devolver la lista de Categoriaes sin ordenar.
-            if (string.IsNullOrEmpty(orden))
-            {
-                return datCategoria.Instancia.ListarCategoria();
-            }
-
-            // Determinar la dirección de ordenamiento.
-            bool ordenAscendente = (orden.ToLower() == "asc");
-
-            // Llamar al método "OrdenarCategoriaes()" con un valor entero (1 para ascendente, 0 para descendente).
-            return datCategoria.Instancia.OrdenarCategoria(ordenAscendente ? 1 : 0);
+            return datCategoria.Instancia.ListarCategoria();
         }
         public bool ActualizarCategoria(entCategoria cat)
         {

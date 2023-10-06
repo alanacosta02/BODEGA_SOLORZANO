@@ -21,8 +21,6 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@nombre", cat.Nombre);
                 cmd.Parameters.AddWithValue("@descripcion", cat.Descripcion);
-                cmd.Parameters.AddWithValue("@activo", cat.Activo);
-                cmd.Parameters.AddWithValue("@fechaCreacion", cat.FechaCreacion);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i > 0)
