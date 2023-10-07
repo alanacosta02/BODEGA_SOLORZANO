@@ -7,19 +7,19 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
     {
         public static logTransaccion Instancia { get; } = new();
 
-        public bool RegistrarTransaccion(entTransaccion transaccion, List<entProducto> lsProducto, int idUser)
-        {
-            int idTransaccion = 0;
-            bool registrado = datTransaccion.Instancia.RegistrarTransaccion(transaccion, out idTransaccion, idUser);
+        //public bool RegistrarTransaccion(entTransaccion transaccion, List<entProducto> lsProducto, int idUser)
+        //{
+        //    int idTransaccion = 0;
+        //    bool registrado = datTransaccion.Instancia.RegistrarTransaccion(transaccion, out idTransaccion, idUser);
 
-            if (registrado)
-            {
-                foreach (var item in lsProducto)
-                {
+        //    if (registrado)
+        //    {
+        //        foreach (var item in lsProducto)
+        //        {
 
-                    bool creado = datTransaccion.Instancia.RegistrarDetalleTransaccion(lsProducto, idTransaccion);
-                }
-            }
-        }
+        //            bool creado = datTransaccion.Instancia.RegistrarDetalleTransaccion(lsProducto, idTransaccion);
+        //        }
+        //    }
+        //}
     }
 }
