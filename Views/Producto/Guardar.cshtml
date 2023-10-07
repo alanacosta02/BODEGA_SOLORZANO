@@ -1,0 +1,59 @@
+﻿@model BODEGA_SOLORZANO.Models.BoSolor.entProducto
+
+@{
+    ViewData["Title"] = "Guardar";
+}
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="card" style="max-width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">Registrar Producto</h5>
+                <form asp-action="Guardar" asp-controller="Producto" method="post" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre de Producto</span>
+                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresa producto" aria-label="Username" aria-describedby="basic-addon1">
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Descripción</span>
+                        <textarea asp-for="Descripcion" class="form-control" aria-label="With textarea"></textarea>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Código</span>
+                        <input asp-for="Codigo" type="text" class="form-control" placeholder="Ingresa código" aria-label="Username" aria-describedby="basic-addon3">
+                        <span asp-validation-for="Codigo" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon5">Precio de Venta</span>
+                        <input asp-for="PrecioVenta" type="number" step="0.01" class="form-control" placeholder="Ingresa precio de venta" aria-label="Username" aria-describedby="basic-addon5">
+                        <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon6">Imagen</span>
+                        <input asp-for="Imagen" type="file" name="RutaImagen" class="form-control" accept="image/*">
+                        <span asp-validation-for="Imagen" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon9">Categoría</span>
+                        <select asp-for="IdCategoria"  name="Categoria" asp-items="@(new SelectList(ViewBag.Categorias, "IdCategoria", "Nombre"))" class="form-select">
+                            <option value="">Selecciona una categoría</option>
+                        </select>
+                        <span asp-validation-for="IdCategoria" class="text-danger"></span>
+                    </div>
+
+
+                    <br />
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <a asp-action="Listar" asp-controller="Producto" class="btn btn-success"><i class="bi bi-plus-circle"></i>Volver a la Lista</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>

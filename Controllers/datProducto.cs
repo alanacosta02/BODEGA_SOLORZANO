@@ -26,11 +26,9 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@nombre", prod.Nombre);
                 cmd.Parameters.AddWithValue("@descripcion", prod.Descripcion);
                 cmd.Parameters.AddWithValue("@codigo", prod.Codigo);
-                cmd.Parameters.AddWithValue("@stock", prod.Stock);
                 cmd.Parameters.AddWithValue("@precioVenta", prod.PrecioVenta);
                 cmd.Parameters.AddWithValue("@imagen", prod.Imagen);
                 cmd.Parameters.AddWithValue("@activo", prod.Activo);
-                cmd.Parameters.AddWithValue("@fechaCreacion", prod.FechaCreacion);
                 cmd.Parameters.AddWithValue("@idCategoria", prod.IdCategoria);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
@@ -53,49 +51,61 @@ namespace BODEGA_SOLORZANO.Datos
         //Leer
         public List<entProducto> ListarProductos()
         {
-            SqlCommand cmd = null;
             List<entProducto> lista = new List<entProducto>();
+
             try
             {
-                SqlConnection cn = Conexion.ObtenerConexion();
-                cmd = new SqlCommand("spListarProducto", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                using (SqlConnection cn = Conexion.ObtenerConexion())
                 {
-                    entProducto Prod = new entProducto
+                    using (SqlCommand cmd = new SqlCommand("spListarProducto", cn))
                     {
-                        IdProducto = Convert.ToInt32(dr["idProducto"]),
-                        Nombre = dr["nombre"].ToString(),
-                        Descripcion = dr["descripcion"].ToString(),
-                        Codigo = dr["codigo"].ToString(),
-                        Stock = Convert.ToInt32(dr["stock"]),
-                        PrecioVenta = Convert.ToDouble(dr["precioVenta"]),
-                        Imagen = dr["imagen"].ToString(),
-                        Activo = Convert.ToBoolean(dr["activo"]),
-                        FechaCreacion = Convert.ToDateTime(dr["fechaCreacion"]),
-                    };
-                    entCategoria idCategoria = new entCategoria
-                    {
-                        IdCategoria = Convert.ToInt32(dr["idCategoria"])
-                    };
-                    Prod.IdCategoria = idCategoria;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    lista.Add(Prod);
+                        cn.Open();
 
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                entProducto prod = new entProducto
+                                {
+                                    IdProducto = Convert.ToInt32(dr["idProducto"]),
+                                    Nombre = dr["nombre"].ToString(),
+                                    Descripcion = dr["descripcion"].ToString(),
+                                    Codigo = dr["codigo"].ToString(),
+                                    Stock = Convert.ToInt32(dr["stock"]),
+                                    PrecioVenta = Convert.ToDouble(dr["precioVenta"]),
+                                    Imagen = dr["imagen"].ToString(),
+                                    Activo = Convert.ToBoolean(dr["activo"]),
+                                    FechaCreacion = Convert.ToDateTime(dr["fechaCreacion"])
+                                };
+
+                                // Verifica si la columna "Categoria" existe en el resultado del procedimiento almacenado
+                                if (dr.GetOrdinal("Categoria") != -1)
+                                {
+                                    entCategoria categoria = new entCategoria
+                                    {
+                                        Nombre = dr["Categoria"].ToString()
+                                    };
+                                    prod.IdCategoria = categoria;
+                                }
+
+                                lista.Add(prod);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                Console.WriteLine($"Error al listar productos: {e.Message}");
+                // Log.Error($"Error al listar productos: {e.Message}", e);
+                throw; // Lanza la excepción nuevamente para que puedas verla en el lugar que llama a este método.
             }
-            finally
-            {
-                cmd.Connection.Close();
-            }
+
             return lista;
         }
+
         //Actualizar
 
         public bool ActualizarProducto(entProducto Prod)

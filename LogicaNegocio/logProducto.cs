@@ -12,30 +12,10 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
         {
             return datProducto.Instancia.CrearProducto(prod);
         }
-        public List<entProducto> ListarProductos(string busqueda, string orden)
+        public List<entProducto> ListarProductos()
         {
-            try
-            {
-                switch (orden)
-                {
-                    case "asc": return datProducto.Instancia.Ordenar(1);
-                    case "desc": return datProducto.Instancia.Ordenar(2);
-                    default:
-                        break;
-                }
-                if (string.IsNullOrWhiteSpace(busqueda))
-                {
-                    return datProducto.Instancia.ListarProductos();
-                }
-                else
-                {
-                    return datProducto.Instancia.BuscarProducto(busqueda);
-                }
-            }
-            catch
-            {
-                throw new Exception("Algo salio mal durante el proceso");
-            }
+          return datProducto.Instancia.ListarProductos();
+            
         }
         public bool ActualizarProducto(entProducto prod)
         {
