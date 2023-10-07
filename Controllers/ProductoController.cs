@@ -27,7 +27,7 @@ namespace BODEGA_SOLORZANO.Controllers
         }
         [HttpPost]
 
-        public IActionResult Guardar(entProducto Producto,String categoria, IFormFile RutaImagen)
+        public IActionResult Guardar(entProducto Producto,int categoria, IFormFile RutaImagen)
         {
             if (RutaImagen != null && RutaImagen.Length > 0)
             {
@@ -40,8 +40,10 @@ namespace BODEGA_SOLORZANO.Controllers
                 }
 
                 Producto.Imagen = "/Imagenes/Productos/" + RutaImagen.FileName;
-             
             }
+            entCategoria cat = new entCategoria();
+            cat.IdCategoria= categoria;
+            Producto.IdCategoria = cat;
 
             var respuesta = _datos.CrearProducto(Producto);
 
