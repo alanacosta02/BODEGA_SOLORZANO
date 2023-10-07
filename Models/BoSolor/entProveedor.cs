@@ -5,7 +5,7 @@
         private int idProveedor;
         private string razonSocial;
         private string numDocumento;
-        private string telefono;
+        private string Contacto;
         private bool activo;
 
         #region Get and Set
@@ -25,10 +25,10 @@
             set { numDocumento = value; }
         }
 
-        public string Telefono
+        public string contacto
         {
-            get { return telefono; }
-            set { telefono = value; }
+            get { return Contacto; }
+            set { Contacto = value; }
         }
 
         public bool Activo

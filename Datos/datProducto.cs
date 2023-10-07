@@ -28,8 +28,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@codigo", prod.Codigo);
                 cmd.Parameters.AddWithValue("@precioVenta", prod.PrecioVenta);
                 cmd.Parameters.AddWithValue("@imagen", prod.Imagen);
-                cmd.Parameters.AddWithValue("@activo", prod.Activo);
-                cmd.Parameters.AddWithValue("@idCategoria", prod.IdCategoria);
+                cmd.Parameters.AddWithValue("@idCategoria", prod.IdCategoria.IdCategoria);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i != 0)

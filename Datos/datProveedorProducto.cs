@@ -7,56 +7,104 @@ namespace BODEGA_SOLORZANO.Datos
     public class datProveedorProducto
     {
         public static datProveedorProducto Instancia = new ();
-
-
-        public List<entProveedorProducto> ListarProveedorProducto()
+        public bool CrearProveedorProducto(entProveedorProducto proveedorProducto)
         {
             SqlCommand cmd = null;
-            List<entProveedorProducto> lista = new List<entProveedorProducto>();
+            bool creado = false;
 
             try
             {
                 SqlConnection cn = Conexion.ObtenerConexion();
-                cmd = new SqlCommand("spListarProveedorProducto", cn);
+                cmd = new SqlCommand("spCrearProveedorProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
+
+                // Asegúrate de ajustar los nombres de los parámetros y las propiedades según tu modelo
+                cmd.Parameters.AddWithValue("@idProveedor", proveedorProducto.Proveedor.IdProveedor);
+                cmd.Parameters.AddWithValue("@idProducto", proveedorProducto.Producto.IdProducto);
+                cmd.Parameters.AddWithValue("@precioCompra", proveedorProducto.PrecioCompra);
+         
+
                 cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                int i = cmd.ExecuteNonQuery();
+                if (i != 0)
                 {
-                    entProveedor p = new entProveedor
-                    {
-                        IdProveedor = Convert.ToInt32(dr["idProveedor"]),
-                        RazonSocial = dr["proveedor"].ToString(),
-                        Activo = Convert.ToBoolean(dr["activo"])
-                    };
-                    entProducto prod = new entProducto
-                    {
-                        IdProducto = Convert.ToInt32(dr["idProducto"]),
-                        Nombre = dr["nombre"].ToString(),
-                        Codigo = dr["codigo"].ToString(),
-                        Stock = Convert.ToInt32(dr["stock"]),
-                        PrecioVenta = Convert.ToDouble(dr["precioVenta"])
-                    };
-                    entProveedorProducto obj = new entProveedorProducto
-                    {
-                        IdProveedorProducto = Convert.ToInt32(dr["idProveedor_Producto"]),
-                        Proveedor = p,
-                        Producto = prod,
-                        PrecioCompra = Convert.ToDouble(dr["precioCompra"])
-                    };
-                    lista.Add(obj);
+                    creado = true;
                 }
             }
             catch (Exception e)
             {
-                throw new Exception("No se pudo listar los productos");
+                throw new Exception(e.Message);
             }
             finally
             {
                 cmd.Connection.Close();
             }
+
+            return creado;
+        }
+
+
+        public List<entProveedorProducto> ListarProveedorProductos()
+        {
+            List<entProveedorProducto> lista = new List<entProveedorProducto>();
+
+            try
+            {
+                using (SqlConnection cn = Conexion.ObtenerConexion())
+                {
+                    using (SqlCommand cmd = new SqlCommand("spListarProveedorProducto", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cn.Open();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                entProveedorProducto proveedorProducto = new entProveedorProducto
+                                {
+                             
+                                    PrecioCompra = Convert.ToDouble(dr["Precio"])
+                                };
+
+                                // Verifica si las columnas "Proveedor" y "Producto" existen en el resultado del procedimiento almacenado
+                                if (dr.GetOrdinal("Proveedor") != -1)
+                                {
+                                    entProveedor proveedor = new entProveedor
+                                    {
+                                        RazonSocial = dr["PROVEEDOR"].ToString()
+                                        // Ajusta según las propiedades reales de tu entidad Proveedor
+                                    };
+                                    proveedorProducto.Proveedor = proveedor;
+                                }
+
+                                if (dr.GetOrdinal("Producto") != -1)
+                                {
+                                    entProducto producto = new entProducto
+                                    {
+                                        Nombre = dr["PRODUCTO"].ToString()
+                                        // Ajusta según las propiedades reales de tu entidad Producto
+                                    };
+                                    proveedorProducto.Producto = producto;
+                                }
+
+                                lista.Add(proveedorProducto);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error al listar proveedor-producto: {e.Message}");
+                // Log.Error($"Error al listar proveedor-producto: {e.Message}", e);
+                throw; // Lanza la excepción nuevamente para que puedas verla en el lugar que llama a este método.
+            }
+
             return lista;
         }
+
 
         public List<entProveedorProducto> ListarProductoAdmin()
         {

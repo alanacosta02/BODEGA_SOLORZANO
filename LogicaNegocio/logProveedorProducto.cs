@@ -8,9 +8,15 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
         public static logProveedorProducto Instancia = new ();
 
         #region CRUD
+
+
+        public bool CrearProveedorProductos(entProveedorProducto pro)
+        {
+            return datProveedorProducto.Instancia.CrearProveedorProducto(pro);
+        }
         public List<entProveedorProducto> ListarProveedorProducto()
         {
-            return datProveedorProducto.Instancia.ListarProveedorProducto();
+            return datProveedorProducto.Instancia.ListarProveedorProductos();
         }
         #endregion
         public List<entProveedorProducto> ListarProductoAdmin(string dato, string orden)
