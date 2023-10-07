@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Data.SqlClient;
 
 namespace BODEGA_SOLORZANO.Datos
 {
     public class Conexion
     {
-
         private static readonly string? cadenaSQL;
 
         static Conexion()

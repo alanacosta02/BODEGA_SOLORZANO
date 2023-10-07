@@ -5,18 +5,11 @@ using BODEGA_SOLORZANO.Models.ViewModel;
 using BODEGA_SOLORZANO.Permisos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using BODEGA_SOLORZANO.Extenciones;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.VisualBasic;
-using System.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
 
 
 namespace BODEGA_SOLORZANO.Controllers
@@ -48,104 +41,6 @@ namespace BODEGA_SOLORZANO.Controllers
         }
 
         #region Vistas
-
-
-        [PermisosRol(entRol.Administrador)]
-        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
-        public IActionResult Admin()
-        {
-            // Almacenar objeto en la sesión
-            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
-            HttpContext.Session.SetObject("Usuario", cliente);
-
-            // Recuperar objeto de la sesión
-            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
-
-            if (usuarioGuardado != null)
-            {
-                ViewBag.Usuario = usuarioGuardado.UserName;
-                return View();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        [PermisosRol(entRol.Jefe)]
-        [Authorize]// No puede si es que no esta autorizado
-        public IActionResult Jefe()
-        {
-            if (HttpContext.Session.TryGetValue("Usuario", out byte[] usuarioBytes))
-            {
-                var usuarioJson = Encoding.UTF8.GetString(usuarioBytes);
-                var cliente = JsonConvert.DeserializeObject<entUsuario>(usuarioJson);
-                ViewBag.Usuario = cliente.UserName;
-                return View();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        [PermisosRol(entRol.Compras)]
-        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
-        public IActionResult Compras()
-        {
-            // Almacenar objeto en la sesión
-            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
-            HttpContext.Session.SetObject("Usuario", cliente);
-
-            // Recuperar objeto de la sesión
-            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
-
-            if (usuarioGuardado != null)
-            {
-                ViewBag.Usuario = usuarioGuardado.UserName;
-                return View();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        [PermisosRol(entRol.Ventas)]
-        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
-        public IActionResult Ventas()
-        {
-            // Almacenar objeto en la sesión
-            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
-            HttpContext.Session.SetObject("Usuario", cliente);
-
-            // Recuperar objeto de la sesión
-            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
-
-            if (usuarioGuardado != null)
-            {
-                ViewBag.Usuario = usuarioGuardado.UserName;
-                return View();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        [PermisosRol(entRol.Pedidos)]
-        [Authorize]// No puede si es que no esta autorizado //Almacena la info en la memoria del navegador
-        public IActionResult Pedidos()
-        {
-            // Almacenar objeto en la sesión
-            var cliente = new entUsuario { UserName = "Nombre del Usuario" };
-            HttpContext.Session.SetObject("Usuario", cliente);
-
-            // Recuperar objeto de la sesión
-            var usuarioGuardado = HttpContext.Session.GetObject<entUsuario>("Usuario");
-
-            if (usuarioGuardado != null)
-            {
-                ViewBag.Usuario = usuarioGuardado.UserName;
-                return View();
-            }
-
-            return RedirectToAction("Index");
-        }
-
-
         public ActionResult SinPermisos()
         {
             ViewBag.Message = "Usted no tiene permisos para acceder a esta pagina";
@@ -168,27 +63,26 @@ namespace BODEGA_SOLORZANO.Controllers
                 entUsuario objCliente = logUsuario.Instancia.IniciarSesion(user, pass);
                 if (objCliente != null)
                 {
-                    //var claims = new List<Claim>
-                    //{
-                    //    new Claim(ClaimTypes.Name, objCliente.UserName),
-                    //    new Claim(ClaimTypes.Role, objCliente.Rol.ToString())
-                    //};
-
-                    //var claimsIdentity = new ClaimsIdentity(
-                    //    claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-
-
-                    //await HttpContext.SignInAsync(
-                    //    CookieAuthenticationDefaults.AuthenticationScheme,
-                    //    new ClaimsPrincipal(claimsIdentity));
-
-                    // Almacena el objeto de usuario en la sesión si lo necesitas
-                    //HttpContext.Session.Set<entUsuario>("Usuario", objCliente);
 
                     if (objCliente.Rol == entRol.Administrador)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", "Administrador");
+                    }
+                    if (objCliente.Rol == entRol.Jefe)
+                    {
+                        return RedirectToAction("Index", "Jefe");
+                    }
+                    if (objCliente.Rol == entRol.Compras)
+                    {
+                        return RedirectToAction("Index", "Compras");
+                    }
+                    if (objCliente.Rol == entRol.Ventas)
+                    {
+                        return RedirectToAction("Index", "Ventas");
+                    }
+                    if (objCliente.Rol == entRol.Pedidos)
+                    {
+                        return RedirectToAction("Index", "Pedidos");
                     }
 
                 }

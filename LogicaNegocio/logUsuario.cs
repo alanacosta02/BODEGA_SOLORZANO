@@ -13,11 +13,11 @@ using System.Text.RegularExpressions;
 
 namespace BODEGA_SOLORZANO.LogicaNegocio
 {
-    public class logUsuario 
+    public class logUsuario
     {
         private string errorMessage = string.Empty;
-        
-        public static logUsuario Instancia = new ();
+
+        public static logUsuario Instancia { get; } = new();
 
         #region CRUD
         public bool CrearUsuario(entUsuario user, out List<string> lsErrores)
