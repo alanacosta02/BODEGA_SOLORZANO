@@ -1,12 +1,4 @@
-﻿@using BODEGA_SOLORZANO.Models.BoSolor;
-@model List<entMenu>
-
-@{
-    string menucollapse = "collapseLayouts";
-    int correlativo = 1;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -26,58 +18,12 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar-->
-        <div class="ms-auto">
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>@ViewData["usuario"]</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Ajustes</a></li>
-                        <li><a class="dropdown-item" href="#!">Registro de actividades</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="@Url.Action("CerrarSesion", "Home")">Cerrar sesion</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        @ViewBag.Usuario
+        @await Component.InvokeAsync("MenuUsuario")
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-
-                        @foreach (var menu in Model)
-                        {
-                            @if (menu.ListaMenu.Count() == 0)
-                            {
-                                <a class="nav-link" href="@($"/{menu.Controlador}/{menu.PaginaAccion}")">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                    @menu.Nombre
-                                </a>
-
-                            }
-                            else
-                            {
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="@($"#{menucollapse}{correlativo}")" aria-expanded="false" aria-controls="collapseLayouts">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                    @menu.Nombre
-                                </a>
-                                <div class="collapse" id="@($"{menucollapse}{correlativo}")" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        @foreach (var submenu in menu.ListaMenu)
-                                        {
-                                            <a class="nav-link" href="">@submenu.Nombre</a>
-                                            
-
-                                        }
-                                    </nav>
-                                </div>
-                                correlativo = correlativo + 1;
-                            }
-                        }
-                    </div>
-                </div>
+                @await Component.InvokeAsync("Menu")
             </nav>
         </div>
         <div id="layoutSidenav_content">

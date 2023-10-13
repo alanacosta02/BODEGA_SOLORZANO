@@ -52,19 +52,9 @@ namespace BODEGA_SOLORZANO.Controllers
         public IActionResult Principal()
         {
             ClaimsPrincipal claimUser = HttpContext.User;
-            List<entMenu> menuUsuario = new();
-
             if (claimUser.Identity.IsAuthenticated)
             {
-                string idRol = claimUser.Claims.Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value)
-                .SingleOrDefault();
-                menuUsuario = logMenu.Instancia.MostrarMenu(Convert.ToInt32(idRol));
-                ViewBag.Usuario = claimUser.Claims.Where(c => c.Type == ClaimTypes.Name)
-                .Select(c => c.Value)
-                .SingleOrDefault();
-
-                return View(menuUsuario);
+                return View();
             }
             return RedirectToAction("Login");
         }
