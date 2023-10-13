@@ -12,7 +12,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datRoll
     {
-        public static datRoll Instancia = new ();
+        public static datRoll Instancia { get; } = new ();
 
         public List<entRoll> ListarRoll()
         {

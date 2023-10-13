@@ -9,7 +9,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProducto
     {
-        public static datProducto Instancia = new ();
+        public static datProducto Instancia { get; } = new();
 
 
         #region CRUD

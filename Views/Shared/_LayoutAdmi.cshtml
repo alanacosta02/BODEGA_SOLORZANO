@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using BODEGA_SOLORZANO.Models.BoSolor;
+@model List<entMenu>
+
+@{
+    string menucollapse = "collapseLayouts";
+    int correlativo = 1;
+}
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -17,25 +25,21 @@
         <a class="navbar-brand ps-3" href="@Url.Action("Index", "Home")">Bodega Solorzano</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
         <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Ajustes</a></li>
-                    <li><a class="dropdown-item" href="#!">Registro de actividades</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="@Url.Action("CerrarSesion", "Home")">Cerrar sesion</a></li>
-                </ul>
-            </li>
-        </ul>
+        <div class="ms-auto">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>@ViewData["usuario"]</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Ajustes</a></li>
+                        <li><a class="dropdown-item" href="#!">Registro de actividades</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="@Url.Action("CerrarSesion", "Home")">Cerrar sesion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        @ViewBag.Usuario
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -43,61 +47,36 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
 
-                        <div class="sb-sidenav-menu-heading">Interfaz</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Productos
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("Listar", "Producto")">Listar Productos</a>
-                                <a class="nav-link" href="@Url.Action("Guardar", "Producto")">Registrar Productos</a>
-                            </nav>
-                        </div>
+                        @foreach (var menu in Model)
+                        {
+                            @if (menu.ListaMenu.Count() == 0)
+                            {
+                                <a class="nav-link" href="@($"/{menu.Controlador}/{menu.PaginaAccion}")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    @menu.Nombre
+                                </a>
 
-                        
-                       <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Proveedor
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("Listar", "Proveedor")">Listar Proveedores</a>
-                                <a class="nav-link" href="@Url.Action("Guardar", "Proveedor")">Registrar Proveedor</a>
-                            </nav>
-                        </div>
+                            }
+                            else
+                            {
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="@($"#{menucollapse}{correlativo}")" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    @menu.Nombre
+                                </a>
+                                <div class="collapse" id="@($"{menucollapse}{correlativo}")" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        @foreach (var submenu in menu.ListaMenu)
+                                        {
+                                            <a class="nav-link" href="@($"{menu.Controlador}/{menu.PaginaAccion}")">@submenu.Nombre</a>
+                                            @Url.Action(menu.Controlador)
 
-                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Proveedor Producto
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("Listar", "ProveedorProducto")">Listar Proveedor-Producto</a>
-                                <a class="nav-link" href="@Url.Action("Guardar", "ProveedorProducto")">Registrar</a>
-                            </nav>
-                        </div>
-
-
-                        <div class="sb-sidenav-menu-heading">Complementos</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Graficos
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tablas
-                        </a>
-
-
+                                        }
+                                    </nav>
+                                </div>
+                                correlativo = correlativo + 1;
+                            }
+                        }
                     </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Conectado como:</div>
-                    Comprador
                 </div>
             </nav>
         </div>
@@ -119,7 +98,7 @@
             </footer>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="~/Admi/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

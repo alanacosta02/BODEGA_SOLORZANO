@@ -6,7 +6,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProveedorProducto
     {
-        public static datProveedorProducto Instancia = new ();
+        public static datProveedorProducto Instancia { get; } = new ();
         public bool CrearProveedorProducto(entProveedorProducto proveedorProducto)
         {
             SqlCommand cmd = null;

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 
+using System.Security.Claims;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
@@ -47,8 +48,35 @@ namespace BODEGA_SOLORZANO.Controllers
             return View();
         }
 
+
+        public IActionResult Principal()
+        {
+            ClaimsPrincipal claimUser = HttpContext.User;
+            List<entMenu> menuUsuario = new();
+
+            if (claimUser.Identity.IsAuthenticated)
+            {
+                string idRol = claimUser.Claims.Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value)
+                .SingleOrDefault();
+                menuUsuario = logMenu.Instancia.MostrarMenu(Convert.ToInt32(idRol));
+                ViewBag.Usuario = claimUser.Claims.Where(c => c.Type == ClaimTypes.Name)
+                .Select(c => c.Value)
+                .SingleOrDefault();
+
+                return View(menuUsuario);
+            }
+            return RedirectToAction("Login");
+        }
+
         public ActionResult Login()
         {
+            ClaimsPrincipal claimUser = HttpContext.User;
+
+            if (claimUser.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Principal");
+            }
             return View();
         }
 
@@ -63,28 +91,27 @@ namespace BODEGA_SOLORZANO.Controllers
                 entUsuario objCliente = logUsuario.Instancia.IniciarSesion(user, pass);
                 if (objCliente != null)
                 {
+                    var claims = new List<Claim> // Guardar los datos del usuario un listado de claims
+                    {
+                        new Claim(ClaimTypes.Name, objCliente.UserName),
+                        new Claim(ClaimTypes.NameIdentifier, objCliente.IdCuenta.ToString()),
+                        new Claim(ClaimTypes.Role, objCliente.IdRol.ToString()),
+                    };
+                    var claims_identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    if (objCliente.Rol == entRol.Administrador)
+                    var properties = new AuthenticationProperties
                     {
-                        return RedirectToAction("Index", "Administrador");
-                    }
-                    if (objCliente.Rol == entRol.Jefe)
-                    {
-                        return RedirectToAction("Index", "Jefe");
-                    }
-                    if (objCliente.Rol == entRol.Compras)
-                    {
-                        return RedirectToAction("Index", "Compras");
-                    }
-                    if (objCliente.Rol == entRol.Ventas)
-                    {
-                        return RedirectToAction("Index", "Ventas");
-                    }
-                    if (objCliente.Rol == entRol.Pedidos)
-                    {
-                        return RedirectToAction("Index", "Pedidos");
-                    }
+                        AllowRefresh = true, // Permitir refrescar el ticket de autenticación
+                        ExpiresUtc = DateTime.UtcNow.AddDays(1) // Tiempo de expiración de la cookie
+                    };
 
+                    // Registrar la cookie de autenticación en el navegador del usuario
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claims_identity),
+                        properties);
+                    return RedirectToAction("Principal");
                 }
                 else
                 {
@@ -208,9 +235,6 @@ namespace BODEGA_SOLORZANO.Controllers
         public async Task<IActionResult> CerrarSesion()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // No necesitas limpiar la sesión en ASP.NET Core ya que no usamos Session["Usuario"]
-
             return RedirectToAction("Index");
         }
         #endregion

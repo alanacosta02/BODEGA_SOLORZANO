@@ -42,6 +42,8 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
 
             public entRoll Roll { get; set; }
 
+            public int IdRol { get; set; }
+
             public bool Activo { get; set; }
 
             public entUsuario()

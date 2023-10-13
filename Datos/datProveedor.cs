@@ -6,7 +6,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProveedor
     {
-        public static datProveedor Instancia = new ();
+        public static datProveedor Instancia { get; } = new ();
 
 
         #region CRUD

@@ -1,7 +1,20 @@
+using Microsoft.AspNetCore.Authentication.Cookies; // Para controlador acceso part1
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Agregamos la autenticacion al proyecto usando cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Home/Login";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+
+        //options.LogoutPath = "/Acceso/CerrarSesion";
+        //options.AccessDeniedPath = "/Acceso/Denegado";
+    });
 
 var app = builder.Build();
 
@@ -20,6 +33,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Activar para autenticacion
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -14,7 +14,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datUsuario 
     {
-        public static datUsuario Instancia = new ();
+        public static datUsuario Instancia { get; } = new ();
 
         #region CRUD
         //Crear
@@ -219,9 +219,10 @@ namespace BODEGA_SOLORZANO.Datos
                     {
                         u = new entUsuario
                         {
-                            Rol = (entRol)dr["idRol"],//Convertir (castearlo) a objeto de tipo entRol
+                            IdRol = Convert.ToInt32(dr["idRol"]),
                             UserName = dr["userName"].ToString(),
                             Activo = Convert.ToBoolean(dr["activo"]),
+                            IdCuenta = Convert.ToInt32(dr["idCuenta"]),
                
                         };
                     }

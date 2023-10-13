@@ -6,7 +6,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datCategoria
     {
-        public static datCategoria Instancia = new ();
+        public static datCategoria Instancia { get; } = new();
 
         #region CRUD
         //Crear
