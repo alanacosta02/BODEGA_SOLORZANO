@@ -39,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-pattern: "{controller=Home}/{action=Index}/{id?}");
+pattern: "{controller=MetodoPago}/{action=Listar}/{id?}");
 
 app.Run();
