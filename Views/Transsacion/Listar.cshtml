@@ -1,0 +1,63 @@
+﻿@model List<BODEGA_SOLORZANO.Models.BoSolor.entTransacción>
+
+@{
+    ViewData["Title"] = "Listar";
+}
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lista de Transacciones</h1>
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <a asp-action="Guardar" asp-controller="Transsacion" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nueva</a>
+                <hr />
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Código</th>
+              
+                            <th>Monto Bruto</th>
+                            <th>Descuento</th>
+                            <th>Monto Total</th>
+                            <th>Fecha y Hora</th>
+                            <th>Estado de Transacción</th>
+                            <th>Persona</th>
+                            <th>Método de Pago</th>
+                            <th>Cuenta</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IdTransaccion</td>
+                                <td>@item.CodTransaccion</td>
+                                <td>@item.MontoBruto</td>
+                                <td>@item.Descuento</td>
+                                <td>@item.MontoTotal</td>
+                                <td>@item.FechaHora</td>
+                                <td>@item.EstadoTransaccion</td>
+                                <td>@item.IdPersona</td>
+                                <td>@item.IdMetodo.Nombre</td>
+                                <td>@item.IdCuenta.IdCuenta</td>
+                                <td>
+                                    <a asp-action="Editar" asp-controller="Transaccion" class="btn btn-primary btn-sm" asp-route-IdTransaccion="@item.IdTransaccion">Editar</a>
+                                    <a asp-action="Eliminar" asp-controller="Transaccion" class="btn btn-danger btn-sm" asp-route-IdTransaccion="@item.IdTransaccion">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

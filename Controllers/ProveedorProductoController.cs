@@ -43,7 +43,7 @@ namespace BODEGA_SOLORZANO.Controllers
 
             proveedorProducto.Producto = pro;
             proveedorProducto.Proveedor = prov;
-            entCategoria cat = new entCategoria();
+           
             
             var respuesta = _datosProveedorProducto.CrearProveedorProductos(proveedorProducto);
 
