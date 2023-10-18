@@ -6,7 +6,7 @@ using BODEGA_SOLORZANO.Models.BoSolor;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
-
+    [Authorize]
     public class CategoriaController : Controller
     {
         private readonly IWebHostEnvironment _environment; // Esto se usa para obtener la ruta del directorio de contenido web

@@ -1,15 +1,17 @@
 ﻿using BODEGA_SOLORZANO.Datos;
 using BODEGA_SOLORZANO.LogicaNegocio;
 using BODEGA_SOLORZANO.Models.BoSolor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
-    public class TranssacionController : Controller
+    [Authorize]
+    public class TransaccionController : Controller
     {
         private readonly IWebHostEnvironment _environment;
 
-        public TranssacionController(IWebHostEnvironment environment)
+        public TransaccionController(IWebHostEnvironment environment)
         {
             _environment = environment;
         }

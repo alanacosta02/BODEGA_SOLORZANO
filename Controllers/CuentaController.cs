@@ -1,10 +1,12 @@
 ﻿using BODEGA_SOLORZANO.Datos;
 using BODEGA_SOLORZANO.LogicaNegocio;
 using BODEGA_SOLORZANO.Models.BoSolor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
+    [Authorize]
     public class CuentaController : Controller
     {
         private readonly IWebHostEnvironment _environment; // Esto se usa para obtener la ruta del directorio de contenido web

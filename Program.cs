@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Authentication.Cookies; // Para controlador acceso pa
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
 // Agregamos la autenticacion al proyecto usando cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -15,6 +12,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         //options.LogoutPath = "/Acceso/CerrarSesion";
         //options.AccessDeniedPath = "/Acceso/Denegado";
     });
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -39,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-pattern: "{controller=MetodoPago}/{action=Listar}/{id?}");
+pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
