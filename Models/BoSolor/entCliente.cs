@@ -2,33 +2,10 @@
 {
     public class entCliente
     {
-        private int idCliente;
-        private string nombres;
-        private string apellidos;
-        private string numDocumento;
+        public int idCliente { get; set; }
+        public string nombres { get; set; }
+        public string apellidos { get; set; }
+        public string numDocumento { get; set; }
 
-        #region Get and Set
-        public int IdCliente
-        {
-            get { return idCliente; }
-            set { idCliente = value; }
-        }
-        public string Nombres
-        {
-            get { return nombres; }
-            set { nombres = value; }
-        }
-        public string Apellidos
-        {
-            get { return apellidos; }
-            set { apellidos = value; }
-        }
-
-        public string NumDocumento
-        {
-            get { return numDocumento; }
-            set { numDocumento = value; }
-        }
-        #endregion
     }
 }

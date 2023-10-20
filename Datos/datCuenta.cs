@@ -187,5 +187,56 @@ namespace BODEGA_SOLORZANO.Datos
             }
         }
         #endregion CRUD
+
+
+        public List<entCuenta> ListarCuentasRepartidor()
+        {
+            List<entCuenta> lista = new List<entCuenta>();
+            SqlCommand cmd = null;
+            try
+            {
+                SqlConnection cn = Conexion.ObtenerConexion();
+                cmd = new SqlCommand("spCuentasSegunRol 'Repartidor'", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+
+
+                    entCuenta cuenta = new entCuenta
+                    {
+                        IdCuenta = Convert.ToInt32(dr["IdCuenta"]),
+                        DNI = dr["DNI"].ToString(),
+                        Telefono = dr["Telefono"].ToString(),
+                        Correo = dr["Correo"].ToString(),
+                        UserName = dr["UserName"].ToString(),
+                        Activo = Convert.ToBoolean(dr["Activo"]),
+                        FechaInicio = Convert.ToDateTime(dr["FechaInicio"]),
+                        FechaFin = dr["FechaFin"] is DBNull ? (DateTime?)null : Convert.ToDateTime(dr["FechaFin"]),
+
+                    };
+                    // Verifica si la columna "Categoria" existe en el resultado del procedimiento almacenado
+                    if (dr.GetOrdinal("userName") != -1)
+                    {
+                        entRoll rol = new entRoll
+                        {
+                            Nombre = dr["userName"].ToString()
+                        };
+                        cuenta.IdRol = rol;
+                    }
+                    lista.Add(cuenta);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+            return lista;
+        }
     }
 }

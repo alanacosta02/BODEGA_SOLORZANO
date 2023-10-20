@@ -17,6 +17,12 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
         public bool ActualizarCuenta(entCuenta cuenta)
         {
             return datCuenta.Instancia.ActualizarCuenta(cuenta);
-        } 
+        }
+
+        public List<entCuenta> ListarCuentaRepartidor()
+        {
+            return datCuenta.Instancia.ListarCuentasRepartidor();
+        }
+
     }
 }
