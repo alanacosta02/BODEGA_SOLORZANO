@@ -31,11 +31,14 @@ namespace BODEGA_SOLORZANO.Controllers
         [HttpPost]
         public IActionResult Guardar(entCategoria categoria)
         {
-            var respuesta = _datosCategoria.CrearCategoria(categoria);
-
-            if (respuesta)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Listar");
+                var respuesta = _datosCategoria.CrearCategoria(categoria);
+
+                if (respuesta)
+                {
+                    return RedirectToAction("Listar");
+                }
             }
             return View();
 

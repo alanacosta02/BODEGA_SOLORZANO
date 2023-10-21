@@ -1,6 +1,6 @@
 ﻿@model BODEGA_SOLORZANO.Models.BoSolor.entCategoria
 @{
-    ViewData["Title"] = "Guardar"; 
+    ViewData["Title"] = "Guardar";
     Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
 }
 
@@ -10,27 +10,31 @@
 </head>
 
 <body>
-<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="card" style="max-width: 30rem;">
-        <div class="card-body">
-            <h5 class="card-title">Registrar Categoria</h5>
-            <form asp-action="Guardar" asp-controller="Categoria" method="post">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Nombre de Categoria</span>
-                    <input asp-for="Nombre"  type="text" class="form-control" placeholder="Ingresa categoria" aria-label="Username" aria-describedby="basic-addon1">
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-text">Descripción</span>
-                    <textarea asp-for="Descripcion"  class="form-control" aria-label="With textarea"></textarea>
-                    <span asp-validation-for="Descripcion" class="text-danger"></span>
-                </div>
-            <br>
-                <br>
-                <button type="submit" class="btn btn-primary">Registrar</button>
-                <a asp-action="Listar" asp-controller="Categoria" class="btn btn-success"><i class="bi bi-plus-circle"></i>Volver a la Lista</a>
-            </form>
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="card" style="max-width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">Registrar Categoria</h5>
+                <form asp-action="Guardar" asp-controller="Categoria" method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre de Categoria</span>
+                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresa categoria" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="validation-for">
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Descripción</span>
+                        <textarea asp-for="Descripcion" class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                    <div class="validation-for">
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <a asp-action="Listar" asp-controller="Categoria" class="btn btn-success"><i class="bi bi-plus-circle"></i>Volver a la Lista</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </body>

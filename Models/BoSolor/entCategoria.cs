@@ -1,8 +1,10 @@
-﻿namespace BODEGA_SOLORZANO.Models.BoSolor
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BODEGA_SOLORZANO.Models.BoSolor
 {
     public class entCategoria
     {
-        private int idCategoria;
+        private int idCategoria;       
         private string nombre;
         private string descripcion;
         private bool activo;
@@ -14,11 +16,17 @@
             get { return idCategoria; }
             set { idCategoria = value; }
         }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras")]
         public string Nombre
         {
             get { return nombre; }
             set { nombre = value; }
         }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras")]
         public string Descripcion
         {
             get { return descripcion; }
