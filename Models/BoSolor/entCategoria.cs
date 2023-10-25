@@ -19,6 +19,7 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "La longitud debe estar entre 3 y 50 caracteres")]
         public string Nombre
         {
             get { return nombre; }
@@ -27,6 +28,7 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "La longitud debe estar entre 5 y 100 caracteres")]
         public string Descripcion
         {
             get { return descripcion; }

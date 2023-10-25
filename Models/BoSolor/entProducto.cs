@@ -1,4 +1,6 @@
-﻿namespace BODEGA_SOLORZANO.Models.BoSolor
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BODEGA_SOLORZANO.Models.BoSolor
 {
     public class entProducto
     {
@@ -19,21 +21,36 @@
             get { return idProducto; }
             set { idProducto = value; }
         }
+
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "La longitud debe estar entre 3 y 50 caracteres")]
         public string Nombre
         {
             get { return nombre; }
             set { nombre = value; }
         }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "La longitud debe estar entre 5 y 100 caracteres")]
         public string Descripcion
         {
             get { return descripcion; }
             set { descripcion = value; }
         }
+
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [StringLength(8, ErrorMessage = "La longitud máxima es 8 caracteres")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Solo se permiten letras y números")]
         public string Codigo
         {
             get { return codigo; }
             set { codigo = value; }
         }
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Formato de precio incorrecto")]
         public double PrecioVenta
         {
             get { return precioVenta; }

@@ -31,31 +31,33 @@ namespace BODEGA_SOLORZANO.Controllers
 
         public IActionResult Guardar(entProducto Producto,int categoria, IFormFile RutaImagen)
         {
-            if (RutaImagen != null && RutaImagen.Length > 0)
+            if (ModelState.IsValid)
             {
-                // Define la ruta donde se guardará la imagen dentro de wwwroot
-                var rutaDeGuardado = Path.Combine(_environment.WebRootPath, "images/Productos", RutaImagen.FileName);
-
-                using (var stream = new FileStream(rutaDeGuardado, FileMode.Create))
+                if (RutaImagen != null && RutaImagen.Length > 0)
                 {
-                    RutaImagen.CopyTo(stream);
+                    // Define la ruta donde se guardará la imagen dentro de wwwroot
+                    var rutaDeGuardado = Path.Combine(_environment.WebRootPath, "images/Productos", RutaImagen.FileName);
+
+                    using (var stream = new FileStream(rutaDeGuardado, FileMode.Create))
+                    {
+                        RutaImagen.CopyTo(stream);
+                    }
+
+                    Producto.Imagen = "/Imagenes/Productos/" + RutaImagen.FileName;
                 }
+                entCategoria cat = new entCategoria();
+                cat.IdCategoria = categoria;
+                Producto.IdCategoria = cat;
 
-                Producto.Imagen = "/Imagenes/Productos/" + RutaImagen.FileName;
+                var respuesta = _datos.CrearProducto(Producto);
+
+                if (respuesta)
+                {
+
+                    return RedirectToAction("Listar");
+
+                }
             }
-            entCategoria cat = new entCategoria();
-            cat.IdCategoria= categoria;
-            Producto.IdCategoria = cat;
-
-            var respuesta = _datos.CrearProducto(Producto);
-
-            if (respuesta)
-            {
-
-                return RedirectToAction("Listar");
-
-            }
-
             // En caso de que ModelState.IsValid sea falso, regresa la vista actual con el modelo
             return View();
         }

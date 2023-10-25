@@ -1,4 +1,6 @@
-﻿namespace BODEGA_SOLORZANO.Models.BoSolor
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BODEGA_SOLORZANO.Models.BoSolor
 {
     public class entProveedorProducto
     {
@@ -25,7 +27,8 @@
             get { return producto; }
             set { producto = value; }
         }
-
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Formato de precio incorrecto")]
         public double PrecioCompra
         {
             get { return precioCompra; }

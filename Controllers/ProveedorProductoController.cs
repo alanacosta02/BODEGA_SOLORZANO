@@ -25,6 +25,7 @@ namespace BODEGA_SOLORZANO.Controllers
 
         public IActionResult Guardar()
         {
+
             // Obtener la lista de proveedores y productos necesarios para el formulario
             logProveedor logProveedor = new logProveedor();     
             logProducto logProducto = new logProducto();
@@ -37,23 +38,25 @@ namespace BODEGA_SOLORZANO.Controllers
         [HttpPost]
         public IActionResult Guardar(entProveedorProducto proveedorProducto,int producto,int proveedor)
         {
-            entProducto pro = new entProducto();
-            entProveedor prov =  new entProveedor();
-
-            pro.IdProducto = producto;
-            prov.IdProveedor = proveedor;
-
-            proveedorProducto.Producto = pro;
-            proveedorProducto.Proveedor = prov;
-           
-            
-            var respuesta = _datosProveedorProducto.CrearProveedorProductos(proveedorProducto);
-
-            if (respuesta)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Listar");
-            }
+                entProducto pro = new entProducto();
+                entProveedor prov = new entProveedor();
 
+                pro.IdProducto = producto;
+                prov.IdProveedor = proveedor;
+
+                proveedorProducto.Producto = pro;
+                proveedorProducto.Proveedor = prov;
+
+
+                var respuesta = _datosProveedorProducto.CrearProveedorProductos(proveedorProducto);
+
+                if (respuesta)
+                {
+                    return RedirectToAction("Listar");
+                }
+            }
             // En caso de que ModelState.IsValid sea falso, regresa la vista actual con el modelo
             return View();
         }

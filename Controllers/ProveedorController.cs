@@ -28,14 +28,16 @@ namespace BODEGA_SOLORZANO.Controllers
         [HttpPost]
         public IActionResult Guardar(entProveedor proveedor)
         {
-            var respuesta = _datos.CrearProveedor(proveedor);
-
-            if (respuesta)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Listar");
-            }
+                var respuesta = _datos.CrearProveedor(proveedor);
 
-            return View(proveedor);
+                if (respuesta)
+                {
+                    return RedirectToAction("Listar");
+                }
+            }
+            return View();
         }
     }
     
