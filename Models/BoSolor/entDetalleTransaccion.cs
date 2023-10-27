@@ -2,7 +2,7 @@
 {
     public class entDetalleTransaccion
     {
-        public entTransaccion Transaccion { get; set; }
+        public entTransacción Transaccion { get; set; }
         public entProducto Producto { get; set; }
         public int Cantidad { get; set; }
         public decimal SubTotal { get; set; }

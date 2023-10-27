@@ -17,7 +17,7 @@
             <div class="card-header">
             </div>
             <div class="card-body">
-                <a asp-action="Guardar" asp-controller="Transsacion" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nueva</a>
+                <a asp-action="Guardar" asp-controller="Transaccion" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nueva</a>
                 <hr />
                 <table class="table table-bordered">
                     <thead>
@@ -47,9 +47,9 @@
                                 <td>@item.MontoTotal</td>
                                 <td>@item.FechaHora</td>
                                 <td>@item.EstadoTransaccion</td>
-                                <td>@item.IdPersona</td>
+                                <td>@item.IdPersona.nombres</td>
                                 <td>@item.IdMetodo.Nombre</td>
-                                <td>@item.IdCuenta.IdCuenta</td>
+                                <td>@item.IdCuenta.Correo</td>
                                 <td>
                                     <a asp-action="Editar" asp-controller="Transaccion" class="btn btn-primary btn-sm" asp-route-IdTransaccion="@item.IdTransaccion">Editar</a>
                                     <a asp-action="Eliminar" asp-controller="Transaccion" class="btn btn-danger btn-sm" asp-route-IdTransaccion="@item.IdTransaccion">Eliminar</a>

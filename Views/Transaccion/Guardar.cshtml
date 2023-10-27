@@ -18,24 +18,55 @@
             <div class="card-body">
                 <h5 class="card-title">Registrar Transacción</h5>
                 <form asp-action="Guardar" asp-controller="Transaccion" method="post">
+
+                    <!-- Código de Transacción -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Código de Transacción</span>
                         <input asp-for="CodTransaccion" class="form-control" placeholder="Ingrese el código de la transacción" aria-label="Código de Transacción" aria-describedby="basic-addon1">
                         <span asp-validation-for="CodTransaccion" class="text-danger"></span>
                     </div>
 
-                    <!-- Other fields... -->
-
+                    <!-- Tipo de Transacción -->
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon9">ID de Método de Pago</span>
+                        <span class="input-group-text" id="basic-addon2">Tipo de Transacción</span>
+                        <input asp-for="TipoTransaccion" class="form-control" placeholder="Ingrese el tipo de transacción" aria-label="Tipo de Transacción" aria-describedby="basic-addon2">
+                        <span asp-validation-for="TipoTransaccion" class="text-danger"></span>
+                    </div>
+
+                    <!-- Monto Bruto -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Monto Bruto</span>
+                        <input asp-for="MontoBruto" class="form-control" name="Monto" placeholder="Ingrese el monto bruto" aria-label="Monto Bruto" aria-describedby="basic-addon3">
+                        <span asp-validation-for="MontoBruto" class="text-danger"></span>
+                    </div>
+
+                    <!-- Descuento -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon4">Descuento</span>
+                        <input asp-for="Descuento" class="form-control" name="descuento" placeholder="Ingrese el descuento" aria-label="Descuento" aria-describedby="basic-addon4">
+                        <span asp-validation-for="Descuento" class="text-danger"></span>
+                    </div>
+                    <!-- ID de Método de Cliente -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon9">Cliente</span>
+                        <select asp-for="IdPersona.idCliente" asp-items="@(new SelectList(ViewBag.Cliente, "idCliente", "nombres"))" class="form-select">
+                            <option value="">Selecciona un Cliente</option>
+                        </select>
+                        <span asp-validation-for="IdPersona.idCliente" class="text-danger"></span>
+                    </div>
+
+                    <!-- ID de Método de Pago -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon9">Método de Pago</span>
                         <select asp-for="IdMetodo.IdMetodo" asp-items="@(new SelectList(ViewBag.MetodosPago, "IdMetodo", "Nombre"))" class="form-select">
                             <option value="">Selecciona un método de pago</option>
                         </select>
                         <span asp-validation-for="IdMetodo.IdMetodo" class="text-danger"></span>
                     </div>
 
+                    <!-- ID de Cuenta -->
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon10">ID de Cuenta</span>
+                        <span class="input-group-text" id="basic-addon10">Cuenta</span>
                         <select asp-for="IdCuenta.IdCuenta" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
                             <option value="">Selecciona una cuenta</option>
                         </select>
@@ -51,5 +82,3 @@
     </div>
 </body>
 </html>
-
-

@@ -10,7 +10,7 @@
         public DateTime FechaRecepcion { get; set; }
         public DateTime FechaEntrega { get; set; }
         public entCliente IdCliente { get; set; }
-        public entTransaccion IdTransaccion { get; set; }
+        public entTransacción IdTransaccion { get; set; }
         public entEstadoPedido IdEstadoPedido { get; set; }
         public entCuenta IdRepartidor { get; set; }
     }

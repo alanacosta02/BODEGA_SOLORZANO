@@ -10,7 +10,7 @@
         public decimal MontoTotal { get; set; }
         public DateTime FechaHora { get; set; }
         public string EstadoTransaccion { get; set; }
-        public string IdPersona { get; set; }
+        public entCliente IdPersona { get; set; }
         public entMetodoPago IdMetodo { get; set; }
         public entCuenta IdCuenta { get; set; }
     }
