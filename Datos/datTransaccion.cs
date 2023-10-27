@@ -74,6 +74,46 @@ namespace BODEGA_SOLORZANO.Datos
             return lista;
         }
 
+        public bool CrearTranssacion (entTransacción transaccion)
+        {
+            SqlCommand cmd = null;
+            bool creado = false;
+
+            try
+            {
+                SqlConnection cn = Conexion.ObtenerConexion();
+                cmd = new SqlCommand("spIniciarTransaccion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@codTransaccion", transaccion.CodTransaccion);
+                cmd.Parameters.AddWithValue("@tipoTransaccion", transaccion.TipoTransaccion);
+                cmd.Parameters.AddWithValue("@montoBruto", transaccion.MontoBruto);
+                cmd.Parameters.AddWithValue("@descuento", transaccion.Descuento);
+                cmd.Parameters.AddWithValue("@montoTotal", transaccion.MontoTotal);
+                cmd.Parameters.AddWithValue("@estadoTransaccion", transaccion.EstadoTransaccion);
+                cmd.Parameters.AddWithValue("@idPersona", transaccion.IdPersona.idCliente);
+                cmd.Parameters.AddWithValue("@idMetodo", transaccion.IdMetodo.IdMetodo);
+                cmd.Parameters.AddWithValue("@idCuenta", transaccion.IdCuenta.IdCuenta);
+
+
+                cn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i != 0)
+                {
+                    creado = true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return creado;
+        }
 
     }
 }

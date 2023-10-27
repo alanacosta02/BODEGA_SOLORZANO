@@ -13,8 +13,11 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
         {
             return datTransaccion.Instancia.ListarTransacciones();
         }
+        public bool CrearTransaccions(entTransacción trans)
+        {
+            return datTransaccion.Instancia.CrearTranssacion(trans);
+        }
 
-     
 
     }
 }

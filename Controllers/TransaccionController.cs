@@ -43,10 +43,9 @@ namespace BODEGA_SOLORZANO.Controllers
         }
 
         [HttpPost]
-        public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, int cuenta, int Monto, int descuento)
+        public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, int cuenta, decimal Monto, decimal descuento)
         {
-            if (ModelState.IsValid)
-            {
+           
                 entCliente EntCliente = new entCliente();   
                 entMetodoPago   EntmetodoPago = new entMetodoPago();
                 entCuenta Entcuenta = new entCuenta();
@@ -59,22 +58,21 @@ namespace BODEGA_SOLORZANO.Controllers
                 transacción.IdPersona = EntCliente;
                 transacción.IdMetodo = EntmetodoPago;
                 transacción.IdCuenta = Entcuenta;
+            transacción.MontoBruto= Monto;
 
-                decimal Descuento = descuento / (100);
+                decimal Descuento = descuento /100 ;
                 decimal Total = Monto - Descuento;
 
                 transacción.Descuento = Descuento;
                 transacción.MontoTotal = Total;
 
-                var respuesta=true ; //= _datosProveedorProducto.CrearProveedorProductos(proveedorProducto);
+                var respuesta= _datos.CrearTransaccions(transacción);
 
                 if (respuesta)
                 {
                     return RedirectToAction("Listar");
                 }
-            }
-            // En caso de que ModelState.IsValid sea falso, regresa la vista actual con el modelo
-            return View();
+           return View(respuesta);
         }
     }
 }
