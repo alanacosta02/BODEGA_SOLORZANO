@@ -25,28 +25,23 @@ namespace BODEGA_SOLORZANO.Datos
 
                 while (dr.Read())
                 {
-                    entCuenta cuenta = new entCuenta();
-                    if (dr["cliente"] != DBNull.Value)
+                    entCuenta cuenta  = new entCuenta
                     {
-                        int idCuenta;
-                        if (int.TryParse(dr["cliente"].ToString(), out idCuenta))
-                        {
-                            cuenta.IdCuenta = idCuenta;
-                        }
-                        else
-                        {
-                            // Maneja el error de conversión, por ahora, estableciendo un valor predeterminado
-                            cuenta.IdCuenta = 0; // o cualquier valor predeterminado
-                        }
-                    }
-                    // Establece otros campos en el objeto entCuenta
+                        Correo = dr["usuarios"].ToString(),
+                        // Otros campos de la entidad metodoPago
+                    };
+
 
                     entMetodoPago metodoPago = new entMetodoPago
                     {
                         Nombre = dr["metodo"].ToString(),
                         // Otros campos de la entidad metodoPago
                     };
-
+                    entCliente cliente = new entCliente
+                    {
+                        nombres = dr["clientes"].ToString(),
+                        // Otros campos de la entidad metodoPago
+                    };
                     entTransacción transaccion = new entTransacción
                     {
                         IdTransaccion = Convert.ToInt32(dr["IdTransaccion"]),
@@ -56,7 +51,7 @@ namespace BODEGA_SOLORZANO.Datos
                         MontoTotal = Convert.ToDecimal(dr["MontoTotal"]),
                         FechaHora = Convert.ToDateTime(dr["FechaHora"]),
                         EstadoTransaccion = dr["EstadoTransaccion"].ToString(),
-                        IdPersona = dr["usuario"].ToString(),
+                        IdPersona = cliente,
                         IdMetodo = metodoPago,
                         IdCuenta = cuenta
                     };

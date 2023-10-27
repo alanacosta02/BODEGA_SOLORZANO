@@ -94,7 +94,7 @@ namespace BODEGA_SOLORZANO.Datos
 
                                 if (dr.GetOrdinal("codTransaccion") != -1 && dr["codTransaccion"] != DBNull.Value)
                                 {
-                                    entTransaccion transaccion = new entTransaccion
+                                    entTransacción transaccion = new entTransacción
                                     {
                                         IdTransaccion = Convert.ToInt32(dr["codTransaccion"]),
                                         // ... asignar otras propiedades de la transacción
