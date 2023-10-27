@@ -26,13 +26,6 @@
                         <span asp-validation-for="CodTransaccion" class="text-danger"></span>
                     </div>
 
-                    <!-- Tipo de Transacción -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon2">Tipo de Transacción</span>
-                        <input asp-for="TipoTransaccion" class="form-control" placeholder="Ingrese el tipo de transacción" aria-label="Tipo de Transacción" aria-describedby="basic-addon2">
-                        <span asp-validation-for="TipoTransaccion" class="text-danger"></span>
-                    </div>
-
                     <!-- Monto Bruto -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon3">Monto Bruto</span>
@@ -49,7 +42,7 @@
                     <!-- ID de Método de Cliente -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon9">Cliente</span>
-                        <select asp-for="IdPersona.idCliente" asp-items="@(new SelectList(ViewBag.Cliente, "idCliente", "nombres"))" class="form-select">
+                        <select asp-for="IdPersona.idCliente" name="Cliente" asp-items="@(new SelectList(ViewBag.Cliente, "idCliente", "nombres"))" class="form-select">
                             <option value="">Selecciona un Cliente</option>
                         </select>
                         <span asp-validation-for="IdPersona.idCliente" class="text-danger"></span>
@@ -58,7 +51,7 @@
                     <!-- ID de Método de Pago -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon9">Método de Pago</span>
-                        <select asp-for="IdMetodo.IdMetodo" asp-items="@(new SelectList(ViewBag.MetodosPago, "IdMetodo", "Nombre"))" class="form-select">
+                        <select asp-for="IdMetodo.IdMetodo"name="Metodo" asp-items="@(new SelectList(ViewBag.MetodosPago, "IdMetodo", "Nombre"))" class="form-select">
                             <option value="">Selecciona un método de pago</option>
                         </select>
                         <span asp-validation-for="IdMetodo.IdMetodo" class="text-danger"></span>
@@ -67,7 +60,7 @@
                     <!-- ID de Cuenta -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon10">Cuenta</span>
-                        <select asp-for="IdCuenta.IdCuenta" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
+                        <select asp-for="IdCuenta.IdCuenta" name="cuenta" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
                             <option value="">Selecciona una cuenta</option>
                         </select>
                         <span asp-validation-for="IdCuenta.IdCuenta" class="text-danger"></span>
