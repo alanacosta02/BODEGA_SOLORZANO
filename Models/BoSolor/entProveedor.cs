@@ -28,7 +28,7 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten números")]
-        [StringLength(7, ErrorMessage = "La longitud debe ser de 7 dígitos")]
+        [StringLength(8, ErrorMessage = "La longitud debe ser de 8 dígitos")]
         public string NumDocumento
         {
             get { return numDocumento; }
