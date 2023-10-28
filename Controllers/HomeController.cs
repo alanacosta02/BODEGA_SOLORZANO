@@ -115,8 +115,6 @@ namespace BODEGA_SOLORZANO.Controllers
                 TempData["Error"] = e.Message;
                 return RedirectToAction("Error");
             }
-
-            return RedirectToAction("Login");
         }
 
         [HttpPost]

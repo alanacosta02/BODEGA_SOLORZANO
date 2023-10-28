@@ -3,6 +3,7 @@ using BODEGA_SOLORZANO.LogicaNegocio;
 using BODEGA_SOLORZANO.Models.BoSolor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
@@ -23,9 +24,7 @@ namespace BODEGA_SOLORZANO.Controllers
             return View(listar);
         }
         public IActionResult Guardar()
-        {
-
-          
+        {       
             logMetodoPago met = new logMetodoPago();
             logCuenta Cuenta = new logCuenta();
             logCliente cli = new logCliente();
@@ -37,11 +36,15 @@ namespace BODEGA_SOLORZANO.Controllers
         }
 
         [HttpPost]
-        public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, int cuenta, decimal Monto, decimal descuento)
+        public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, decimal Monto, decimal descuento)
         {
 
             if (ModelState.IsValid)
             {
+                ClaimsPrincipal claimUser = HttpContext.User;
+                int idCuenta = Convert.ToInt32(claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                    .Select(c => c.Value).SingleOrDefault());
+
 
                 entCliente EntCliente = new entCliente();
                 entMetodoPago EntmetodoPago = new entMetodoPago();
@@ -49,7 +52,7 @@ namespace BODEGA_SOLORZANO.Controllers
 
                 EntCliente.idCliente = Cliente;
                 EntmetodoPago.IdMetodo = Metodo;
-                Entcuenta.IdCuenta = cuenta;
+                Entcuenta.IdCuenta = idCuenta;
 
 
                 transacción.IdPersona = EntCliente;

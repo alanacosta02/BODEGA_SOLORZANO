@@ -196,13 +196,18 @@ namespace BODEGA_SOLORZANO.Datos
             try
             {
                 SqlConnection cn = Conexion.ObtenerConexion();
-                cmd = new SqlCommand("spCuentasSegunRol 'Repartidor'", cn);
+                cmd = new SqlCommand("spCuentasSegunRol", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@rol", "Repartidor");
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-
+                    entRoll rol = new entRoll
+                    {
+                        IdRoll = Convert.ToInt32(dr["IdRoll"]),
+                        Nombre = dr["Nombre"].ToString()
+                    };
 
                     entCuenta cuenta = new entCuenta
                     {
@@ -214,17 +219,9 @@ namespace BODEGA_SOLORZANO.Datos
                         Activo = Convert.ToBoolean(dr["Activo"]),
                         FechaInicio = Convert.ToDateTime(dr["FechaInicio"]),
                         FechaFin = dr["FechaFin"] is DBNull ? (DateTime?)null : Convert.ToDateTime(dr["FechaFin"]),
+                        IdRol = rol
 
                     };
-                    // Verifica si la columna "Categoria" existe en el resultado del procedimiento almacenado
-                    if (dr.GetOrdinal("userName") != -1)
-                    {
-                        entRoll rol = new entRoll
-                        {
-                            Nombre = dr["userName"].ToString()
-                        };
-                        cuenta.IdRol = rol;
-                    }
                     lista.Add(cuenta);
                 }
             }

@@ -66,15 +66,6 @@
                         <span asp-validation-for="IdMetodo.IdMetodo" class="text-danger"></span>
                     </div>
 
-                    <!-- ID de Cuenta -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon10">Cuenta</span>
-                        <select asp-for="IdCuenta.IdCuenta" name="cuenta" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta",  "Correo"))" class="form-select">
-                            <option value="">Selecciona una cuenta</option>
-                        </select>
-                        <span asp-validation-for="IdCuenta.IdCuenta" class="text-danger"></span>
-                    </div>
-
                     <br />
                     <button type="submit" class="btn btn-primary">Registrar</button>
                     <a asp-action="Listar" asp-controller="Transsacion" class="btn btn-success"><i class="bi bi-plus-circle"></i>Volver a la Lista</a>
