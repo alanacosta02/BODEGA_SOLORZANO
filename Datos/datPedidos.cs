@@ -24,13 +24,9 @@ namespace BODEGA_SOLORZANO.Datos
                         cmd.Parameters.AddWithValue("@direccionEntrega", pedido.DireccionEntrega);
                         cmd.Parameters.AddWithValue("@referencia", pedido.Referencia);
                         cmd.Parameters.AddWithValue("@detalle", pedido.Detalle);
-                        cmd.Parameters.AddWithValue("@fechaRegistro", pedido.FechaRegistro);
-                        cmd.Parameters.AddWithValue("@fechaRecepcion", pedido.FechaRecepcion);
-                        cmd.Parameters.AddWithValue("@fechaEntrega", pedido.FechaEntrega);
                         cmd.Parameters.AddWithValue("@idCliente", pedido.IdCliente.idCliente);
                         cmd.Parameters.AddWithValue("@idTransaccion", pedido.IdTransaccion.IdTransaccion);
-                        cmd.Parameters.AddWithValue("@idEstadoPedido", pedido.IdEstadoPedido.IdEstadoPedido);
-                        cmd.Parameters.AddWithValue("@idRepartidor", pedido.IdRepartidor.IdCuenta);
+                    
 
                         cn.Open();
                         int i = cmd.ExecuteNonQuery();
@@ -96,7 +92,7 @@ namespace BODEGA_SOLORZANO.Datos
                                 {
                                     entTransacción transaccion = new entTransacción
                                     {
-                                        IdTransaccion = Convert.ToInt32(dr["codTransaccion"]),
+                                        CodTransaccion = (dr["codTransaccion"]).ToString(),
                                         // ... asignar otras propiedades de la transacción
                                     };
                                     pedido.IdTransaccion = transaccion;

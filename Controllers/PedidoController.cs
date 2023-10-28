@@ -37,5 +37,28 @@ namespace BODEGA_SOLORZANO.Controllers
 
             return View();
         }
+        [HttpPost]
+        public IActionResult Guardar(entPedido pedido, int idCliente, int idEstado,int idRepartidor,int idTransaccion )
+        {
+          
+                entCliente cliente = new entCliente();
+                entTransacción tra = new entTransacción();
+
+                cliente.idCliente = idCliente;
+                tra.IdTransaccion = idTransaccion;
+
+                pedido.IdCliente = cliente;
+
+                pedido.IdTransaccion = tra;
+
+                var respuesta = _datosPedido.CrearPedido(pedido);
+                if (respuesta)
+                {
+                    return RedirectToAction("Listar");
+                }
+
+            
+               return View();
+        }
     }
 }

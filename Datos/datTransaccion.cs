@@ -27,7 +27,7 @@ namespace BODEGA_SOLORZANO.Datos
                 {
                     entCuenta cuenta  = new entCuenta
                     {
-                        Correo = dr["usuarios"].ToString(),
+                        Correo = dr["usuario"].ToString(),
                         // Otros campos de la entidad metodoPago
                     };
 
@@ -39,7 +39,7 @@ namespace BODEGA_SOLORZANO.Datos
                     };
                     entCliente cliente = new entCliente
                     {
-                        nombres = dr["clientes"].ToString(),
+                        nombres = dr["cliente"].ToString(),
                         // Otros campos de la entidad metodoPago
                     };
                     entTransacción transaccion = new entTransacción

@@ -17,7 +17,7 @@
         <div class="card" style="max-width: 30rem;">
             <div class="card-body">
                 <h5 class="card-title">Registrar Pedido</h5>
-                <form asp-action="GuardarPedido" asp-controller="Pedido" method="post">
+                <form asp-action="Guardar" asp-controller="Pedido" method="post">
 
                     <!-- Dirección de Entrega -->
                     <div class="input-group mb-3">
@@ -41,51 +41,24 @@
                     </div>
 
 
-                    <!-- Repartidor -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon10">Repartidor</span>
-                        <select asp-for="IdRepartidor.IdCuenta" name="Repartidor" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
-                            <option value="">Selecciona un Repartidor</option>
-                        </select>
-                        <span asp-validation-for="IdRepartidor.IdCuenta" class="text-danger"></span>
-                    </div>
-
                     <!-- Cliente -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon7">Cliente</span>
-                        <select asp-for="IdCliente.IdCliente" name="Cliente" asp-items="@(new SelectList(ViewBag.Cliente, "IdCliente", "Nombres"))" class="form-select">
+                        <select name="idCliente" asp-items="@(new SelectList(ViewBag.Cliente, "IdCliente", "Nombres"))" class="form-select">
                             <option value="">Selecciona un Cliente</option>
                         </select>
-                        <span asp-validation-for="IdCliente.IdCliente" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
 
                     <!-- Transacción -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon8">Transacción</span>
-                        <select asp-for="IdTransaccion.IdTransaccion" name="Transaccion" asp-items="@(new SelectList(ViewBag.Transacciones, "IdTransaccion", "CodTransaccion"))" class="form-select">
+                        <select  name="idTransaccion" asp-items="@(new SelectList(ViewBag.transaccion, "IdTransaccion", "CodTransaccion"))" class="form-select">
                             <option value="">Selecciona una Transacción</option>
                         </select>
-                        <span asp-validation-for="IdTransaccion.IdTransaccion" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
 
-                    <!-- Estado de Pedido -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon9">Estado de Pedido</span>
-                        <select asp-for="IdEstadoPedido.IdEstadoPedido" name="EstadoPedido" asp-items="@(new SelectList(ViewBag.EstadosPedido, "IdEstadoPedido", "NombreEstado"))" class="form-select">
-                            <option value="">Selecciona un Estado de Pedido</option>
-                        </select>
-                        <span asp-validation-for="IdEstadoPedido.IdEstadoPedido" class="text-danger"></span>
-                    </div>
-
-
-                    <!-- Repartidor -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon10">Repartidor</span>
-                        <select asp-for="IdRepartidor.IdCuenta" name="Repartidor" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
-                            <option value="">Selecciona un Repartidor</option>
-                        </select>
-                        <span asp-validation-for="IdRepartidor.IdCuenta" class="text-danger"></span>
-                    </div>
 
                     <br />
                     <button type="submit" class="btn btn-primary">Registrar Pedido</button>
