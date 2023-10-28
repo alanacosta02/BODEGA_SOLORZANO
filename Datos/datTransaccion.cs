@@ -74,17 +74,17 @@ namespace BODEGA_SOLORZANO.Datos
             return lista;
         }
 
-        public bool CrearTranssacion (entTransacción transaccion)
+        public bool CrearTranssacion(entTransacción transaccion)
         {
             SqlCommand cmd = null;
             bool creado = false;
-
+            int idTransaccion = 0;
             try
             {
                 SqlConnection cn = Conexion.ObtenerConexion();
                 cmd = new SqlCommand("spIniciarTransaccion", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-
+                //cmd.Parameters.AddWithValue("@idTransaccion", transaccion.IdTransaccion);
                 cmd.Parameters.AddWithValue("@codTransaccion", transaccion.CodTransaccion);
                 cmd.Parameters.AddWithValue("@tipoTransaccion", transaccion.TipoTransaccion);
                 cmd.Parameters.AddWithValue("@montoBruto", transaccion.MontoBruto);
@@ -96,10 +96,17 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@idCuenta", transaccion.IdCuenta.IdCuenta);
 
 
+                // Parámetro de salida para el ID de la transacción
+                SqlParameter paramIdTransaccion = new SqlParameter("@idTransaccion", SqlDbType.Int);
+                paramIdTransaccion.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramIdTransaccion);
+
+
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i != 0)
                 {
+                    idTransaccion = Convert.ToInt32(paramIdTransaccion.Value);
                     creado = true;
                 }
             }
@@ -111,6 +118,8 @@ namespace BODEGA_SOLORZANO.Datos
             {
                 cmd.Connection.Close();
             }
+
+            transaccion.IdTransaccion = idTransaccion;
 
             return creado;
         }

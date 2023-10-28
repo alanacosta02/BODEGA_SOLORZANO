@@ -24,32 +24,30 @@ namespace BODEGA_SOLORZANO.Controllers
         }
         public IActionResult Guardar()
         {
+
+        
+
             logMetodoPago met = new logMetodoPago();
-            logCuenta logCuenta = new logCuenta();
+            logCuenta Cuenta = new logCuenta();
             logCliente cli = new logCliente();
-            // Debug or log information about the lists
-            var metodosPagoList = met.ListarMetodosPago() ?? new List<entMetodoPago>();
-            var cuentasList = logCuenta.ListarCuenta() ?? new List<entCuenta>();
-            var ClienteList = cli.ListarClientes() ?? new List<entCliente>();
-
-            // Check the data in the Output or log
-            // Console.WriteLine($"MetodosPago Count: {metodosPagoList.Count}");
-            // Console.WriteLine($"Cuentas Count: {cuentasList.Count}");
-
-            ViewBag.MetodosPago = metodosPagoList;
-            ViewBag.Cuentas = cuentasList;
-            ViewBag.Cliente = ClienteList;
+      
+            ViewBag.MetodosPago = met.ListarMetodosPago() ?? new List<entMetodoPago>(); 
+            ViewBag.Cuentas = Cuenta.ListarCuenta() ?? new List<entCuenta>(); 
+            ViewBag.Cliente = cli.ListarClientes() ?? new List<entCliente>(); 
             return View();
         }
 
         [HttpPost]
         public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, int cuenta, decimal Monto, decimal descuento)
         {
-           
-                entCliente EntCliente = new entCliente();   
-                entMetodoPago   EntmetodoPago = new entMetodoPago();
+
+            if (ModelState.IsValid)
+            {
+
+                entCliente EntCliente = new entCliente();
+                entMetodoPago EntmetodoPago = new entMetodoPago();
                 entCuenta Entcuenta = new entCuenta();
-              
+
                 EntCliente.idCliente = Cliente;
                 EntmetodoPago.IdMetodo = Metodo;
                 Entcuenta.IdCuenta = cuenta;
@@ -58,21 +56,22 @@ namespace BODEGA_SOLORZANO.Controllers
                 transacción.IdPersona = EntCliente;
                 transacción.IdMetodo = EntmetodoPago;
                 transacción.IdCuenta = Entcuenta;
-            transacción.MontoBruto= Monto;
+                transacción.MontoBruto = Monto;
 
-                decimal Descuento = descuento /100 ;
+                decimal Descuento = descuento / 100;
                 decimal Total = Monto - Descuento;
 
                 transacción.Descuento = Descuento;
                 transacción.MontoTotal = Total;
-
-                var respuesta= _datos.CrearTransaccions(transacción);
+                transacción.EstadoTransaccion = "EN ESPERA";
+                var respuesta = _datos.CrearTransaccions(transacción);
 
                 if (respuesta)
                 {
                     return RedirectToAction("Listar");
                 }
-           return View(respuesta);
+            }
+           return View();
         }
     }
 }
