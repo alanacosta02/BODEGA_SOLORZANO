@@ -25,8 +25,7 @@ namespace BODEGA_SOLORZANO.Controllers
         public IActionResult Guardar()
         {
 
-        
-
+          
             logMetodoPago met = new logMetodoPago();
             logCuenta Cuenta = new logCuenta();
             logCliente cli = new logCliente();

@@ -1,0 +1,98 @@
+﻿@model BODEGA_SOLORZANO.Models.BoSolor.entPedido
+@{
+    ViewData["Title"] = "Guardar Pedido";
+    Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="card" style="max-width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">Registrar Pedido</h5>
+                <form asp-action="GuardarPedido" asp-controller="Pedido" method="post">
+
+                    <!-- Dirección de Entrega -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Dirección de Entrega</span>
+                        <input asp-for="direccionEntrega" class="form-control" placeholder="Ingrese la dirección de entrega" aria-label="Dirección de Entrega" aria-describedby="basic-addon1">
+                        <span asp-validation-for="direccionEntrega" class="text-danger"></span>
+                    </div>
+
+                    <!-- Referencia -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Referencia</span>
+                        <input asp-for="referencia" class="form-control" placeholder="Ingrese una referencia" aria-label="Referencia" aria-describedby="basic-addon2">
+                        <span asp-validation-for="referencia" class="text-danger"></span>
+                    </div>
+
+                    <!-- Detalle -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">Detalle</span>
+                        <input asp-for="detalle" class="form-control" placeholder="Ingrese el detalle del pedido" aria-label="Detalle" aria-describedby="basic-addon3">
+                        <span asp-validation-for="detalle" class="text-danger"></span>
+                    </div>
+
+
+                    <!-- Repartidor -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon10">Repartidor</span>
+                        <select asp-for="IdRepartidor.IdCuenta" name="Repartidor" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
+                            <option value="">Selecciona un Repartidor</option>
+                        </select>
+                        <span asp-validation-for="IdRepartidor.IdCuenta" class="text-danger"></span>
+                    </div>
+
+                    <!-- Cliente -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon7">Cliente</span>
+                        <select asp-for="IdCliente.IdCliente" name="Cliente" asp-items="@(new SelectList(ViewBag.Cliente, "IdCliente", "Nombres"))" class="form-select">
+                            <option value="">Selecciona un Cliente</option>
+                        </select>
+                        <span asp-validation-for="IdCliente.IdCliente" class="text-danger"></span>
+                    </div>
+
+                    <!-- Transacción -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon8">Transacción</span>
+                        <select asp-for="IdTransaccion.IdTransaccion" name="Transaccion" asp-items="@(new SelectList(ViewBag.Transacciones, "IdTransaccion", "CodTransaccion"))" class="form-select">
+                            <option value="">Selecciona una Transacción</option>
+                        </select>
+                        <span asp-validation-for="IdTransaccion.IdTransaccion" class="text-danger"></span>
+                    </div>
+
+                    <!-- Estado de Pedido -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon9">Estado de Pedido</span>
+                        <select asp-for="IdEstadoPedido.IdEstadoPedido" name="EstadoPedido" asp-items="@(new SelectList(ViewBag.EstadosPedido, "IdEstadoPedido", "NombreEstado"))" class="form-select">
+                            <option value="">Selecciona un Estado de Pedido</option>
+                        </select>
+                        <span asp-validation-for="IdEstadoPedido.IdEstadoPedido" class="text-danger"></span>
+                    </div>
+
+
+                    <!-- Repartidor -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon10">Repartidor</span>
+                        <select asp-for="IdRepartidor.IdCuenta" name="Repartidor" asp-items="@(new SelectList(ViewBag.Cuentas, "IdCuenta", "Correo"))" class="form-select">
+                            <option value="">Selecciona un Repartidor</option>
+                        </select>
+                        <span asp-validation-for="IdRepartidor.IdCuenta" class="text-danger"></span>
+                    </div>
+
+                    <br />
+                    <button type="submit" class="btn btn-primary">Registrar Pedido</button>
+                    <a asp-action="ListarPedidos" asp-controller="Pedido" class="btn btn-success"><i class="bi bi-plus-circle"></i>Volver a la Lista de Pedidos</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
