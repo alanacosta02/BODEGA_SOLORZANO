@@ -8,7 +8,7 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
         private int idProveedor;
         private string razonSocial;
         private string numDocumento;
-        private string Contacto;
+        private string contacto;
         private bool activo;
 
         #region Get and Set
@@ -38,7 +38,7 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(9, MinimumLength = 7, ErrorMessage = "La longitud debe estar entre 7 y 9 caracteres")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten números")]
-        public string contacto
+        public string Contacto
         {
             get { return contacto; }
             set { contacto = value; }

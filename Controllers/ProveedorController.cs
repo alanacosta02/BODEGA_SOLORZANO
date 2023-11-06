@@ -15,6 +15,12 @@ namespace BODEGA_SOLORZANO.Controllers
         }
         private readonly logProveedor _datos = new logProveedor();
 
+        public IActionResult Index()
+        {
+            var listaCategorias = _datos.ListarProveedor();
+            return View(listaCategorias);
+        }
+
         public IActionResult Listar()
         {
             var listaCategorias = _datos.ListarProveedor();

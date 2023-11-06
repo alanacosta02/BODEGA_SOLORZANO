@@ -44,7 +44,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon8">Rol</span>
-                        <select asp-for="IdRol" name="idroll" asp-items="@(new SelectList(ViewBag.Roles, "IdRoll", "Nombre"))" class="form-select">
+                        <select asp-for="IdRol" name="idroll" asp-items="@(new SelectList(ViewBag.Roles, "IdRol", "Nombre"))" class="form-select">
                             <option value="">Selecciona un rol</option>
                         </select>
                         <span asp-validation-for="IdRol" class="text-danger"></span>

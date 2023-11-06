@@ -37,7 +37,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@correo", Usu.Correo);
                 cmd.Parameters.AddWithValue("@fechaInicio", Usu.FechaInicio);
                 cmd.Parameters.AddWithValue("@FechaFin", Usu.FechaFin);
-                cmd.Parameters.AddWithValue("@idRol", Usu.Roll.IdRoll);
+                cmd.Parameters.AddWithValue("@idRol", Usu.Rol.IdRol);
 
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
@@ -80,11 +80,11 @@ namespace BODEGA_SOLORZANO.Datos
                         FechaInicio = Convert.ToDateTime(dr["fechaInicio"]),
                         FechaFin = Convert.ToDateTime(dr["fechaFin"])
                     };
-                    entRoll r = new entRoll
+                    entRol r = new entRol
                     {
                         Nombre = dr["nombre"].ToString()
                     };
-                    usu.Roll = r;
+                    usu.Rol = r;
                     lista.Add(usu);
                 }
 
@@ -113,7 +113,7 @@ namespace BODEGA_SOLORZANO.Datos
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entRoll rol = new entRoll()
+                    entRol rol = new entRol()
                     {
                         Descripcion = dr["descripcion"].ToString(),
                     };
@@ -127,7 +127,7 @@ namespace BODEGA_SOLORZANO.Datos
                         Activo = Convert.ToBoolean(dr["activo"]),
                         FechaInicio = Convert.ToDateTime(dr["fechaInicio"]),
                         FechaFin = Convert.ToDateTime(dr["fechaFin"]),
-                        Roll = rol
+                        Rol = rol
                     };
                     lista.Add(usu);
                 }
@@ -252,7 +252,7 @@ namespace BODEGA_SOLORZANO.Datos
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entRoll rol = new entRoll()
+                    entRol rol = new entRol()
                     {
                         Descripcion = dr["descripcion"].ToString(),
                     };
@@ -266,7 +266,7 @@ namespace BODEGA_SOLORZANO.Datos
                         Activo = Convert.ToBoolean(dr["activo"]),
                         FechaInicio = Convert.ToDateTime(dr["fechaInicio"]),
                         FechaFin = Convert.ToDateTime(dr["fechaFin"]),
-                        Roll = rol
+                        Rol = rol
                     };
                     lista.Add(usu);
                 }
@@ -309,11 +309,11 @@ namespace BODEGA_SOLORZANO.Datos
 
                     };
                     
-                    entRoll r = new entRoll
+                    entRol r = new entRol
                     {
                         Descripcion = dr["descripcion"].ToString()
                     };
-                    user.Roll = r;
+                    user.Rol = r;
                     lista.Add(user);
                 }
             }
@@ -342,7 +342,7 @@ namespace BODEGA_SOLORZANO.Datos
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entRoll rol = new entRoll()
+                    entRol rol = new entRol()
                     {
                         Descripcion = dr["descripcion"].ToString(),
                     };
@@ -356,7 +356,7 @@ namespace BODEGA_SOLORZANO.Datos
                         Activo = Convert.ToBoolean(dr["activo"]),
                         FechaInicio = Convert.ToDateTime(dr["fechaInicio"]),
                         FechaFin = Convert.ToDateTime(dr["fechaFin"]),
-                        Roll = rol
+                        Rol = rol
                     };
                     lista.Add(usu);
                 }
@@ -385,7 +385,7 @@ namespace BODEGA_SOLORZANO.Datos
                         cmd.Parameters.AddWithValue("@userName", u.UserName);
                         cmd.Parameters.AddWithValue("@correo", u.Correo);
                         cmd.Parameters.AddWithValue("@pass", u.Pass);
-                        cmd.Parameters.AddWithValue("@idRol", u.Roll.IdRoll);
+                        cmd.Parameters.AddWithValue("@idRol", u.Rol.IdRol);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cn.Open();
                         creado = cmd.ExecuteNonQuery() > 0;

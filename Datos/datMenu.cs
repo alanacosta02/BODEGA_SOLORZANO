@@ -24,12 +24,12 @@ namespace BODEGA_SOLORZANO.Datos
                 {
                     var menu = new entMenu
                     {
-                        IdMenu = dr.GetInt32(dr.GetOrdinal("IdMenu")),
-                        Nombre = dr.GetString(dr.GetOrdinal("Nombre")),
-                        Icono = dr.GetString(dr.GetOrdinal("Icono")),
-                        Controlador = dr.GetString(dr.GetOrdinal("Controlador")),
-                        PaginaAccion = dr.GetString(dr.GetOrdinal("PaginaAccion")),
-                        IdMenuPadre = dr.GetInt32(dr.GetOrdinal("IdMenuPadre"))
+                        IdMenu = dr.IsDBNull(dr.GetOrdinal("IdMenu")) ? 0 : dr.GetInt32(dr.GetOrdinal("IdMenu")),
+                        Nombre = dr.IsDBNull(dr.GetOrdinal("Nombre")) ? "" : dr.GetString(dr.GetOrdinal("Nombre")),
+                        Icono = dr.IsDBNull(dr.GetOrdinal("Icono")) ? "" : dr.GetString(dr.GetOrdinal("Icono")),
+                        Controlador = dr.IsDBNull(dr.GetOrdinal("Controlador")) ? "" : dr.GetString(dr.GetOrdinal("Controlador")),
+                        PaginaAccion = dr.IsDBNull(dr.GetOrdinal("PaginaAccion")) ? "" : dr.GetString(dr.GetOrdinal("PaginaAccion")),
+                        IdMenuPadre = dr.IsDBNull(dr.GetOrdinal("IdMenuPadre")) ? 0 : dr.GetInt32(dr.GetOrdinal("IdMenuPadre"))
                     };
                     lsMenu.Add(menu);
                 }

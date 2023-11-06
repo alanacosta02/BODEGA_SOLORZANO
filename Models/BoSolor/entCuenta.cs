@@ -19,6 +19,6 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
         public bool Activo { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; } // DateTime? para permitir valores nulos
-        public entRoll IdRol { get; set; }
+        public entRol IdRol { get; set; }
     }
 }

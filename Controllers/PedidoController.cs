@@ -1,10 +1,12 @@
 ﻿using BODEGA_SOLORZANO.Datos;
 using BODEGA_SOLORZANO.LogicaNegocio;
 using BODEGA_SOLORZANO.Models.BoSolor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
+    [Authorize]
     public class PedidoController : Controller
     {
         private readonly IWebHostEnvironment _environment;
@@ -15,10 +17,19 @@ namespace BODEGA_SOLORZANO.Controllers
             _environment = environment ;
         }
 
-        public IActionResult Listar()
+        public IActionResult Index()
         {
             var listaPedidos = _datosPedido.ListarPedido();
             return View(listaPedidos);
+        }
+
+        public IActionResult Pendientes()
+        {
+            return View();
+        }
+        public IActionResult Entregados()
+        {
+            return View();
         }
         public IActionResult Guardar()
         {

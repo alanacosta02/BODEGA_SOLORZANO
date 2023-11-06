@@ -22,7 +22,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@razonSocial", pro.RazonSocial);
                 cmd.Parameters.AddWithValue("@numDocumento", pro.NumDocumento);
-                cmd.Parameters.AddWithValue("@Contacto", pro.contacto);
+                cmd.Parameters.AddWithValue("@Contacto", pro.Contacto);
          
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
@@ -60,7 +60,7 @@ namespace BODEGA_SOLORZANO.Datos
                     pro.IdProveedor = Convert.ToInt32(dr["idProveedor"]);
                     pro.RazonSocial = dr["razonSocial"].ToString();
                     pro.NumDocumento = dr["numDocumento"].ToString();
-                    pro.contacto= dr["Contacto"].ToString();
+                    pro.Contacto= dr["Contacto"].ToString();
                     pro.Activo = Convert.ToBoolean(dr["activo"]);
                     list.Add(pro);
                 }
@@ -88,7 +88,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@idProveedor", pro.IdProveedor);
                 cmd.Parameters.AddWithValue("@razonSocial", pro.RazonSocial);
                 cmd.Parameters.AddWithValue("@numDocumento", pro.NumDocumento);
-                cmd.Parameters.AddWithValue("@telefono", pro.contacto);
+                cmd.Parameters.AddWithValue("@telefono", pro.Contacto);
                 cmd.Parameters.AddWithValue("@activo", pro.Activo);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
@@ -158,7 +158,7 @@ namespace BODEGA_SOLORZANO.Datos
                     pro.IdProveedor = Convert.ToInt32(dr["idProveedor"]);
                     pro.RazonSocial = dr["razonSocial"].ToString();
                     pro.NumDocumento = dr["numDocumento"].ToString();
-                    pro.contacto = dr["telefono"].ToString();
+                    pro.Contacto = dr["telefono"].ToString();
                     pro.Activo = Convert.ToBoolean(dr["activo"]);
                     list.Add(pro);
                 }
@@ -191,7 +191,7 @@ namespace BODEGA_SOLORZANO.Datos
                     pro.IdProveedor = Convert.ToInt32(dr["idProveedor"]);
                     pro.RazonSocial = dr["razonSocial"].ToString();
                     pro.NumDocumento = dr["numDocumento"].ToString();
-                    pro.contacto = dr["telefono"].ToString();
+                    pro.Contacto = dr["telefono"].ToString();
                     pro.Activo = Convert.ToBoolean(dr["activo"]);
                 }
             }
@@ -218,7 +218,7 @@ namespace BODEGA_SOLORZANO.Datos
                     pro.IdProveedor = Convert.ToInt32(dr["idProveedor"]);
                     pro.RazonSocial = dr["razonSocial"].ToString();
                     pro.NumDocumento = dr["numDocumento"].ToString();
-                    pro.contacto = dr["telefono"].ToString();
+                    pro.Contacto = dr["telefono"].ToString();
                     pro.Activo = Convert.ToBoolean(dr["activo"]);
                     list.Add(pro);
                 }

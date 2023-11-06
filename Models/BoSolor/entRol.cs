@@ -6,21 +6,15 @@ using System.Threading.Tasks;
 
 namespace BODEGA_SOLORZANO.Models.BoSolor
 {
-    public enum entRol
+    public class entRol
     {
-        // enum permite poner constantes listadas con nombre y valor
-        Administrador = 1, Jefe = 2, Compras = 3, Ventas = 4, Pedidos = 5
-
-    }
-    public class entRoll
-    {
-        private int idRoll;
+        private int idRol;
         private string nombre;
         private string descripcion;
         private bool activo;
         private DateTime fechaCreacion;
 
-        public int IdRoll { get => idRoll; set => idRoll = value; }
+        public int IdRol { get => idRol; set => idRol = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public bool Activo { get => activo; set => activo = value; }

@@ -18,6 +18,12 @@ namespace BODEGA_SOLORZANO.Controllers
             _environment = environment;
         }
 
+        public IActionResult Index()
+        {
+            var listaCuentas = _datosCuenta.ListarCuenta();
+            return View(listaCuentas);
+        }
+
         public IActionResult Listar()
         {
             var listaCuentas = _datosCuenta.ListarCuenta();
@@ -26,19 +32,26 @@ namespace BODEGA_SOLORZANO.Controllers
 
         public IActionResult Guardar()
         {
-            logRoll cuenta = new logRoll();
-            ViewBag.Roles = cuenta.ListarRol() ?? new List<entRoll>();
+            logRol cuenta = new logRol();
+            ViewBag.Roles = cuenta.ListarRol() ?? new List<entRol>();
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            logRol cuenta = new logRol();
+            ViewBag.Roles = cuenta.ListarRol() ?? new List<entRol>();
             return View();
         }
 
         [HttpPost]
         public IActionResult Guardar(entCuenta cuenta,int idroll)
         {
-            entRoll EntRoll = new entRoll();
+            entRol EntRol = new entRol();
            
-            EntRoll.IdRoll = idroll;    
+            EntRol.IdRol = idroll;    
 
-            cuenta.IdRol = EntRoll;   
+            cuenta.IdRol = EntRol;   
 
           
             var respuesta = _datosCuenta.CrearCuenta(cuenta);

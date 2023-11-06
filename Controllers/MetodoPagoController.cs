@@ -14,11 +14,13 @@ namespace BODEGA_SOLORZANO.Controllers
             _environment = environment;
         }
         private readonly logMetodoPago _datos = new logMetodoPago();
-        public IActionResult Listar()
+
+        public IActionResult Index()
         {
             var listaMetodo = _datos.ListarMetodosPago();
             return View(listaMetodo);
         }
+
         public IActionResult Guardar()
         {
             return View();

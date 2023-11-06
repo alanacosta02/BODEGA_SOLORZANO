@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace BODEGA_SOLORZANO.Controllers
 {
     [Authorize]
-
-
     public class ClienteController : Controller
     {
         private readonly IWebHostEnvironment _environment;
@@ -18,6 +16,12 @@ namespace BODEGA_SOLORZANO.Controllers
         public ClienteController(IWebHostEnvironment environment)
         {
             _environment = environment;
+        }
+
+        public IActionResult Index()
+        {
+            var listaClientes = _datosCliente.ListarClientes();
+            return View(listaClientes);
         }
 
         public IActionResult Listar()

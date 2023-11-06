@@ -23,7 +23,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@correo", cuenta.Correo);
                 cmd.Parameters.AddWithValue("@userName", cuenta.UserName);
                 cmd.Parameters.AddWithValue("@pass", cuenta.Password);
-                cmd.Parameters.AddWithValue("@idRol", cuenta.IdRol.IdRoll);
+                cmd.Parameters.AddWithValue("@idRol", cuenta.IdRol.IdRol);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i != 0)
@@ -73,7 +73,7 @@ namespace BODEGA_SOLORZANO.Datos
                     // Verifica si la columna "Categoria" existe en el resultado del procedimiento almacenado
                     if (dr.GetOrdinal("userName") != -1)
                     {
-                        entRoll rol = new entRoll
+                        entRol rol = new entRol
                         {
                             Nombre = dr["userName"].ToString()
                         };
@@ -112,7 +112,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@activo", cuenta.Activo);
                 cmd.Parameters.AddWithValue("@fechaInicio", cuenta.FechaInicio);
                 cmd.Parameters.AddWithValue("@fechaFin", cuenta.FechaFin);
-                cmd.Parameters.AddWithValue("@idRol", cuenta.IdRol.IdRoll);
+                cmd.Parameters.AddWithValue("@idRol", cuenta.IdRol.IdRol);
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i > 0)
@@ -203,9 +203,9 @@ namespace BODEGA_SOLORZANO.Datos
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entRoll rol = new entRoll
+                    entRol rol = new entRol
                     {
-                        IdRoll = Convert.ToInt32(dr["IdRoll"]),
+                        IdRol = Convert.ToInt32(dr["IdRol"]),
                         Nombre = dr["Nombre"].ToString()
                     };
 

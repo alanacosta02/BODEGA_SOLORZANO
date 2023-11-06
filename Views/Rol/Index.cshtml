@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BODEGA_SOLORZANO.Models.BoSolor.entRol>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+@section StylesMain {
+
+}
+
+<h1>LISTADO DE ROLES</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success btn-sm">Crear Nuevo</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="bg-dark text-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">DESCRIPCION</th>
+                <th scope="col">ACTIVO</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.IdRol</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Descripcion</td>
+                    <td>@item.Activo</td>
+                    <td>@item.FechaCreacion</td>
+                    <td>
+                        <a asp-action="Editar" asp-controller="Categoria" class="btn btn-primary btn-sm" asp-route-IdCategoria="@item.IdRol"><i class="bi bi-pencil-square"></i></a>
+                        <a asp-action="Desactivar" asp-controller="Categoria" class="btn btn-danger btn-sm" asp-route-IdCategoria="@item.IdRol"><i class="bi bi-trash3-fill"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section ScriptsMain {
+
+}

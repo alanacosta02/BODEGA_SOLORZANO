@@ -15,7 +15,7 @@ namespace BODEGA_SOLORZANO.Controllers
         }
         private readonly logProducto _datos = new logProducto();
 
-        public IActionResult Listar()
+        public IActionResult Index()
         {
             var listaCategorias = _datos.ListarProductos();
             return View(listaCategorias);

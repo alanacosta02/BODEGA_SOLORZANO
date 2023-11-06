@@ -1,0 +1,60 @@
+﻿@model IEnumerable<BODEGA_SOLORZANO.Models.BoSolor.entPedido>
+
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+
+<div class="container">
+    <h1>Lista de Pedidos</h1>
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <a asp-action="Guardar" asp-controller="Pedido" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
+            <hr />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Dirección de Entrega</th>
+                        <th>Referencia</th>
+                        <th>Detalle</th>
+                        <th>Fecha de Registro</th>
+                        <th>Fecha de Recepción</th>
+                        <th>Fecha de Entrega</th>
+                        <th>Cliente</th>
+                        <th>Transacción</th>
+                        <th>Estado del Pedido</th>
+                        <th>Repartidor</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.IdPedido</td>
+                            <td>@item.DireccionEntrega</td>
+                            <td>@item.Referencia</td>
+                            <td>@item.Detalle</td>
+                            <td>@item.FechaRegistro</td>
+                            <td>@item.FechaRecepcion</td>
+                            <td>@item.FechaEntrega</td>
+                            <td>@item.IdCliente.nombres</td>
+                            <td>@item.IdTransaccion.IdTransaccion</td>
+                            <td>@item.IdEstadoPedido.NombreEstado</td>
+                            <td>@(item.IdRepartidor != null ? item.IdRepartidor.UserName : string.Empty)</td>
+
+                            <td>
+                                <a asp-action="Editar" asp-controller="Pedido" class="btn btn-primary btn-sm" asp-route-IdPedido="@item.IdPedido">Editar</a>
+                                <a asp-action="Eliminar" asp-controller="Pedido" class="btn btn-danger btn-sm" asp-route-IdPedido="@item.IdPedido">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

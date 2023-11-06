@@ -1,0 +1,54 @@
+﻿@model BODEGA_SOLORZANO.Models.BoSolor.entCuenta
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card" style="max-width: 30rem;">
+        <div class="card-body">
+            <h5 class="card-title">Registrar Cuenta</h5>
+            <form asp-action="Guardar" asp-controller="Cuenta" method="post">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">DNI</span>
+                    <input asp-for="DNI" type="text" class="form-control" placeholder="Ingresa DNI" aria-label="DNI" aria-describedby="basic-addon1">
+                    <span asp-validation-for="DNI" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Teléfono</span>
+                    <input asp-for="Telefono" type="text" class="form-control" placeholder="Ingresa teléfono" aria-label="Teléfono" aria-describedby="basic-addon2">
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Correo</span>
+                    <input asp-for="Correo" type="email" class="form-control" placeholder="Ingresa correo" aria-label="Correo" aria-describedby="basic-addon3">
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Usuario</span>
+                    <input asp-for="UserName" type="text" class="form-control" placeholder="Ingresa Usuario" aria-label="Correo" aria-describedby="basic-addon3">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2">Contraseña</span>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Contraseña" aria-label="Correo" aria-describedby="basic-addon3">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <!-- Agrega más campos según tu modelo -->
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon8">Rol</span>
+                    <select asp-for="IdRol" name="idroll" asp-items="@(new SelectList(ViewBag.Roles, "IdRol", "Nombre"))" class="form-select">
+                        <option value="">Selecciona un rol</option>
+                    </select>
+                    <span asp-validation-for="IdRol" class="text-danger"></span>
+                </div>
+
+                <br />
+                <button type="submit" class="btn btn-primary">Registrar</button>
+                <a asp-action="Listar" asp-controller="Cuenta" class="btn btn-success"><i class="bi bi-plus-circle"></i>Volver a la Lista</a>
+            </form>
+        </div>
+    </div>
+</div>
+

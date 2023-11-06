@@ -14,7 +14,7 @@
         {
             @if (menu.ListaMenu.Count() == 0)
             {
-                <a class="nav-link" href="@($"/{menu.Controlador}/{menu.PaginaAccion}")">
+                <a class="nav-link" href="@Url.Action(menu.PaginaAccion, menu.Controlador)">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     @menu.Nombre
                 </a>
@@ -30,7 +30,7 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         @foreach (var submenu in menu.ListaMenu)
                         {
-                            <a class="nav-link" href="@($"/{submenu.Controlador}/{submenu.PaginaAccion}")">@submenu.Nombre</a>
+                            <a class="nav-link" href="@Url.Action(submenu.PaginaAccion, submenu.Controlador)">@submenu.Nombre</a>
 
 
                         }

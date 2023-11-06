@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace BODEGA_SOLORZANO.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class TransaccionController : Controller
     {
         private readonly IWebHostEnvironment _environment;

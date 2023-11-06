@@ -12,7 +12,6 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
         public decimal MontoBruto { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten números")]
-        [Range(1, 100, ErrorMessage = "El descuento debe estar en el rango del 1 al 100")]
         public decimal Descuento { get; set; }
         public decimal MontoTotal { get; set; }
         public DateTime FechaHora { get; set; }

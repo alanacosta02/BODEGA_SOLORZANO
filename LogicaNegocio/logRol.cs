@@ -8,13 +8,13 @@ using BODEGA_SOLORZANO.Datos;
 
 namespace BODEGA_SOLORZANO.Datos
 {
-    public class logRoll
+    public class logRol
     {
-        public static logRoll Instancia = new ();
+        public static logRol Instancia = new ();
 
-        public List<entRoll> ListarRol()
+        public List<entRol> ListarRol()
         {
-            return datRoll.Instancia.ListarRoll();
+            return datRol.Instancia.ListarRol();
         }
     }
 }

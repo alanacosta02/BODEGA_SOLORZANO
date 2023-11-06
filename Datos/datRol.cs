@@ -10,14 +10,14 @@ using BODEGA_SOLORZANO.Models.BoSolor;
 
 namespace BODEGA_SOLORZANO.Datos
 {
-    public class datRoll
+    public class datRol
     {
-        public static datRoll Instancia { get; } = new ();
+        public static datRol Instancia { get; } = new ();
 
-        public List<entRoll> ListarRoll()
+        public List<entRol> ListarRol()
         {
             SqlCommand cmd = null;
-            List<entRoll> lista = new List<entRoll>();
+            List<entRol> lista = new List<entRol>();
             try
             {
                 SqlConnection cn = Conexion.ObtenerConexion();
@@ -27,9 +27,9 @@ namespace BODEGA_SOLORZANO.Datos
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    entRoll rol = new entRoll
+                    entRol rol = new entRol
                     {
-                        IdRoll = Convert.ToInt32(dr["idRol"]),
+                        IdRol = Convert.ToInt32(dr["idRol"]),
                         Nombre = dr["nombre"].ToString(),
                         Descripcion = dr["descripcion"].ToString(),
                         Activo = Convert.ToBoolean(dr["activo"]),

@@ -99,16 +99,16 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
 
             try
             {
-                entRoll r = new entRoll
+                entRol r = new entRol
                 {
-                    IdRoll = 2,
+                    IdRol = 2,
                 };
                 entUsuario u = new entUsuario
                 {
                     UserName = usuario,
                     Correo = correo,
                     Pass = password,
-                    Roll = r,
+                    Rol = r,
                 };
                  
                 // Encriptar clave e intentar crear el usuario
@@ -136,7 +136,7 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
                     }
                     else
                     {
-                        //contra = Recursos.GetSHA256(contra);
+                        contra = Recursos.GetSHA256(contra);
                         u = datUsuario.Instancia.IniciarSesion(dato, contra);
                         if (u != null)// El usuario existe
                         { 
@@ -146,10 +146,6 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
                                 throw new Exception("Usted ya no puede ingresar al sistema");
                             }
 
-                        }
-                        else
-                        {
-                            throw new Exception("´No tienes una cuenta con ese nombre");
                         }
                     }
                 }

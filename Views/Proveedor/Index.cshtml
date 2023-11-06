@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BODEGA_SOLORZANO.Models.BoSolor.entProveedor>
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+
+<div class="container">
+    <h1>Lista de Proveedores</h1>
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <a asp-action="Guardar" asp-controller="Proveedor" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
+            <hr />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Razón Social</th>
+                        <th>Número de Documento</th>
+                        <th>Teléfono</th>
+                        <th>Activo</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.IdProveedor</td>
+                            <td>@item.RazonSocial</td>
+                            <td>@item.NumDocumento</td>
+                            <td>@item.Contacto</td>
+                            <td>@item.Activo</td>
+                            <td>
+                                <a asp-action="Editar" asp-controller="Proveedor" class="btn btn-primary btn-sm" asp-route-IdProveedor="@item.IdProveedor">Editar</a>
+                                <a asp-action="Eliminar" asp-controller="Proveedor" class="btn btn-danger btn-sm" asp-route-IdProveedor="@item.IdProveedor">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

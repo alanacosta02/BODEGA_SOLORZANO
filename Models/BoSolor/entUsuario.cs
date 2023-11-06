@@ -40,8 +40,6 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
 
             public entRol Rol { get; set; }
 
-            public entRoll Roll { get; set; }
-
             public int IdRol { get; set; }
 
             public bool Activo { get; set; }
@@ -50,12 +48,12 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
             {
             }
 
-            public entUsuario(string userName, string correo, string pass, entRoll roll)
+            public entUsuario(string userName, string correo, string pass, entRol rol)
             {
                 UserName = userName;
                 Correo = correo;
                 Pass = pass;
-                Roll = roll;
+                Rol = rol;
             }
         }
     }
