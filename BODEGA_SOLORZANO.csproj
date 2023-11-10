@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <None Include="Views\Shared\Components\MenuUsuario\Default.cshtml" />
+    <None Include="wwwroot\ShowItem\js\scripts.js" />
   </ItemGroup>
 
 </Project>

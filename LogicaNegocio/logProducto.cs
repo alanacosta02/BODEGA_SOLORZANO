@@ -5,7 +5,7 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
 {
     public class logProducto
     {
-        public static logProducto Instancia = new ();
+        public static logProducto Instancia { get; } = new logProducto();
 
         #region CRUD
         public bool CrearProducto(entProducto prod)

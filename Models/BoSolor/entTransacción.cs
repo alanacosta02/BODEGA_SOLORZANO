@@ -20,6 +20,5 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
         public entMetodoPago IdMetodo { get; set; }
         public entCuenta IdCuenta { get; set; }
 
-
     }
 }

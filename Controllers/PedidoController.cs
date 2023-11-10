@@ -11,7 +11,7 @@ namespace BODEGA_SOLORZANO.Controllers
     {
         private readonly IWebHostEnvironment _environment;
         private readonly logPedido _datosPedido = new logPedido();
-
+        List<entDetalleTransaccion> lsDetalleProducto = new();
         public PedidoController(IWebHostEnvironment environment)
         {
             _environment = environment ;
@@ -71,5 +71,17 @@ namespace BODEGA_SOLORZANO.Controllers
             
                return View();
         }
+        [HttpGet]
+        public IActionResult AgregarProducto(entDetalleTransaccion detalle)
+        {
+            lsDetalleProducto.Add(detalle);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult GuardarTransaccion()
+        {
+            return View();
+        }
+
     }
 }

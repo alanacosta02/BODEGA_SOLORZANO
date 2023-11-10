@@ -1,4 +1,4 @@
-﻿@model BODEGA_SOLORZANO.Models.BoSolor.entTransacción
+﻿@model BODEGA_SOLORZANO.Models.BoSolor.entProducto
 
 @{
     ViewData["Title"] = "Guardar";
@@ -9,58 +9,5 @@
 
 <h4>entTransacción</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Guardar">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdTransaccion" class="control-label"></label>
-                <input asp-for="IdTransaccion" class="form-control" />
-                <span asp-validation-for="IdTransaccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodTransaccion" class="control-label"></label>
-                <input asp-for="CodTransaccion" class="form-control" />
-                <span asp-validation-for="CodTransaccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoTransaccion" class="control-label"></label>
-                <input asp-for="TipoTransaccion" class="form-control" />
-                <span asp-validation-for="TipoTransaccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MontoBruto" class="control-label"></label>
-                <input asp-for="MontoBruto" class="form-control" />
-                <span asp-validation-for="MontoBruto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descuento" class="control-label"></label>
-                <input asp-for="Descuento" class="form-control" />
-                <span asp-validation-for="Descuento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MontoTotal" class="control-label"></label>
-                <input asp-for="MontoTotal" class="form-control" />
-                <span asp-validation-for="MontoTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaHora" class="control-label"></label>
-                <input asp-for="FechaHora" class="form-control" />
-                <span asp-validation-for="FechaHora" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoTransaccion" class="control-label"></label>
-                <input asp-for="EstadoTransaccion" class="form-control" />
-                <span asp-validation-for="EstadoTransaccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

@@ -6,7 +6,7 @@ namespace BODEGA_SOLORZANO.Datos
 {
     public class datProveedorProducto
     {
-        public static datProveedorProducto Instancia { get; } = new ();
+        public static datProveedorProducto Instancia { get; } = new();
         public bool CrearProveedorProducto(entProveedorProducto proveedorProducto)
         {
             SqlCommand cmd = null;
@@ -22,7 +22,7 @@ namespace BODEGA_SOLORZANO.Datos
                 cmd.Parameters.AddWithValue("@idProveedor", proveedorProducto.Proveedor.IdProveedor);
                 cmd.Parameters.AddWithValue("@idProducto", proveedorProducto.Producto.IdProducto);
                 cmd.Parameters.AddWithValue("@precioCompra", proveedorProducto.PrecioCompra);
-         
+
 
                 cn.Open();
                 int i = cmd.ExecuteNonQuery();
@@ -64,7 +64,7 @@ namespace BODEGA_SOLORZANO.Datos
                             {
                                 entProveedorProducto proveedorProducto = new entProveedorProducto
                                 {
-                             
+
                                     PrecioCompra = Convert.ToDouble(dr["Precio"])
                                 };
 
@@ -105,6 +105,58 @@ namespace BODEGA_SOLORZANO.Datos
             return lista;
         }
 
+        public List<entProveedorProducto> ListarProductosCompra()
+        {
+            List<entProveedorProducto> lista = new List<entProveedorProducto>();
+
+            try
+            {
+                using (SqlConnection cn = Conexion.ObtenerConexion())
+                {
+                    using (SqlCommand cmd = new SqlCommand("spListarProductosCompra", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cn.Open();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                entProveedorProducto proveedorProducto = new entProveedorProducto
+                                {
+                                    PrecioCompra = Convert.ToDouble(dr["precioCompra"])
+                                };
+
+                                entProveedor proveedor = new entProveedor
+                                {
+                                    RazonSocial = dr["razonSocial"].ToString()
+                                };
+
+                                entProducto producto = new entProducto
+                                {
+                                    IdProducto = Convert.ToInt32(dr["IdProducto"]),
+                                    Nombre = dr["Nombre"].ToString(),
+                                    PrecioVenta = Convert.ToDouble(dr["precioVenta"]),
+                                    Imagen = dr["Imagen"].ToString()
+                                };
+                                proveedorProducto.Producto = producto;
+                                proveedorProducto.Proveedor = proveedor;
+
+                                lista.Add(proveedorProducto);
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return lista;
+
+        }
 
         public List<entProveedorProducto> ListarProductoAdmin()
         {
@@ -212,6 +264,6 @@ namespace BODEGA_SOLORZANO.Datos
             return lista;
         }
 
-        
+
     }
 }

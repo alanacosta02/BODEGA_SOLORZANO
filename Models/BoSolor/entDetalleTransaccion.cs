@@ -4,30 +4,20 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
 {
     public class entDetalleTransaccion
     {
-        public entTransacción Transaccion { get; set; }
-        public entProducto Producto { get; set; }
-        public int cantidad;
-        public decimal subTotal;
-
-        #region Get and Set
-
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten números")]
-        public int Cantidad
-        {
-            get { return cantidad; }
-            set { cantidad = value; }
-        }
+        public int Cantidad { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^\d+$", ErrorMessage = "formato incorrecto para el sub total")]
-        public decimal SubTotal
-        {
-            get { return subTotal; }
-            set { subTotal = value; }
-        }
+        public decimal SubTotal;
 
+        public string UnidadMedida { get; set; }
 
-        #endregion
+        public entTransacción Transaccion { get; set; }
+        public int IdTransaccion { get; set; }
+        public entProducto Producto { get; set; }
+        public int IdProducto { get; set; }
+
     }
 }

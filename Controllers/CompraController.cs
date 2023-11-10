@@ -14,7 +14,7 @@ namespace BODEGA_SOLORZANO.Controllers
         {
             _environment = environment;
         }
-
+        List<entDetalleTransaccion> lsDetalleProducto = new();
         private readonly logTransacción _datos = new logTransacción();
         public IActionResult Index()
         {
@@ -22,25 +22,21 @@ namespace BODEGA_SOLORZANO.Controllers
             return View(listar);
         }
 
+
         public IActionResult Guardar()
         {
-            //logMetodoPago met = new logMetodoPago();
-            //logCuenta logCuenta = new logCuenta();
-
-            //// Debug or log information about the lists
-            //var metodosPagoList = met.ListarMetodosPago() ?? new List<entMetodoPago>();
-            //var cuentasList = logCuenta.ListarCuenta() ?? new List<entCuenta>();
-
-            //// Check the data in the Output or log
-            //// Console.WriteLine($"MetodosPago Count: {metodosPagoList.Count}");
-            //// Console.WriteLine($"Cuentas Count: {cuentasList.Count}");
-
-            //ViewBag.MetodosPago = metodosPagoList;
-            //ViewBag.Cuentas = cuentasList;
-            var entTransaccion = new entTransacción();
-
-
-            return View(entTransaccion);
+            return View();
+        }
+        [HttpGet]
+        public IActionResult AgregarProducto(entDetalleTransaccion detalle)
+        {
+            lsDetalleProducto.Add(detalle);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult GuardarTransaccion()
+        {
+            return View();
         }
 
         public IActionResult Reporte()

@@ -74,10 +74,9 @@ namespace BODEGA_SOLORZANO.Datos
             return lista;
         }
 
-        public bool CrearTranssacion(entTransacción transaccion)
+        public int CrearTranssacion(entTransacción transaccion)
         {
             SqlCommand cmd = null;
-            bool creado = false;
             int idTransaccion = 0;
             try
             {
@@ -107,7 +106,6 @@ namespace BODEGA_SOLORZANO.Datos
                 if (i != 0)
                 {
                     idTransaccion = Convert.ToInt32(paramIdTransaccion.Value);
-                    creado = true;
                 }
             }
             catch (Exception e)
@@ -121,9 +119,48 @@ namespace BODEGA_SOLORZANO.Datos
 
             transaccion.IdTransaccion = idTransaccion;
 
-            return creado;
+            return idTransaccion;
         }
 
+        public bool CrearDetalleTransaccion(List<entDetalleTransaccion> productos)
+        {
+            SqlCommand? cmd = null;
+            bool creado = false;
+            try
+            {
+                SqlConnection cn = Conexion.ObtenerConexion();
+                cmd = new SqlCommand("spCrearDetalleTransaccion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                foreach (entDetalleTransaccion producto in productos)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@cantidad", producto.Cantidad);
+                    cmd.Parameters.AddWithValue("@subTotal", producto.SubTotal);
+                    cmd.Parameters.AddWithValue("@unidadMedida", producto.UnidadMedida);
+                    cmd.Parameters.AddWithValue("@idProducto", producto.Producto.IdProducto);
+                    cmd.Parameters.AddWithValue("@idTransaccion", producto.Transaccion.IdTransaccion);
+
+                    cn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    cn.Close();
+
+                    if (i != 0)
+                    {
+                        creado = true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return creado;
+        }
     }
 }
     

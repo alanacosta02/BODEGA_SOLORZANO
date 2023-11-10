@@ -1,0 +1,69 @@
+﻿@model List<BODEGA_SOLORZANO.Models.BoSolor.entProveedorProducto>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+@section StylesMain {
+    <link href="~/ShowItem/css/styles.css" rel="stylesheet" />
+}
+
+<!-- Related items section-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder">Productos para la compra</h2>
+        <a href="@Url.Action("CarritoCompra", "Producto")" type="button" class="btn btn-success m-4">Ver productos agregados</a>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">           
+            @foreach (var item in Model)
+            {
+                <form asp-action="AgregarProductoCompra" asp-controller="Producto" method="post">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="@item.Producto.Imagen" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@item.Producto.Nombre.ToUpper()</h5>
+                                    <!-- Product price-->
+                                    <ul>
+                                        <li>
+                                            Precio de compra: @item.PrecioCompra
+                                        </li>
+                                        <li>
+                                            Precio de venta: @item.Producto.PrecioVenta
+                                        </li>
+                                    </ul>
+                                    <hr>
+                                    <!-- Product details-->
+                                    <div>
+                                        <ul>
+                                            <li>Proveedor: @item.Proveedor.RazonSocial</li>
+                                            <li>Codigo Producto: @item.Producto.Codigo</li>
+                                            <li>Descripcion: @item.Producto.Descripcion</li>
+                                            <li>Stock: @item.Producto.Stock</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <label>Cantidad: </label>
+                                <input type="number" name="cantidad" min="1">
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><button type="submit" class="btn btn-outline-dark mt-auto">Agregar a la compra</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="idProducto" value="@item.Producto.IdProducto" />
+                    <input type="hidden" name="nombre" value="@item.Producto.Nombre" />
+                </form>
+            }
+        </div>
+    </div>
+</section>
+
+@section ScriptsMain {
+    <script src="~/ShowItem/js/scripts.js"></script>
+}
+

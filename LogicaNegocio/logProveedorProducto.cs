@@ -46,6 +46,9 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
             }
         }
 
-        
+        public List<entProveedorProducto> ListarProductosCompra()
+        {
+            return datProveedorProducto.Instancia.ListarProductosCompra();
+        }
     }
 }

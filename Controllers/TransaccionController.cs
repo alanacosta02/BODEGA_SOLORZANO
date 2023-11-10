@@ -35,45 +35,45 @@ namespace BODEGA_SOLORZANO.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, decimal Monto, decimal descuento)
-        {
+        //[HttpPost]
+        //public IActionResult Guardar(entTransacción transacción, int Cliente, int Metodo, decimal Monto, decimal descuento)
+        //{
 
-            if (ModelState.IsValid)
-            {
-                ClaimsPrincipal claimUser = HttpContext.User;
-                int idCuenta = Convert.ToInt32(claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
-                    .Select(c => c.Value).SingleOrDefault());
-
-
-                entCliente EntCliente = new entCliente();
-                entMetodoPago EntmetodoPago = new entMetodoPago();
-                entCuenta Entcuenta = new entCuenta();
-
-                EntCliente.idCliente = Cliente;
-                EntmetodoPago.IdMetodo = Metodo;
-                Entcuenta.IdCuenta = idCuenta;
+        //    if (ModelState.IsValid)
+        //    {
+        //        ClaimsPrincipal claimUser = HttpContext.User;
+        //        int idCuenta = Convert.ToInt32(claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+        //            .Select(c => c.Value).SingleOrDefault());
 
 
-                transacción.IdPersona = EntCliente;
-                transacción.IdMetodo = EntmetodoPago;
-                transacción.IdCuenta = Entcuenta;
-                transacción.MontoBruto = Monto;
+        //        entCliente EntCliente = new entCliente();
+        //        entMetodoPago EntmetodoPago = new entMetodoPago();
+        //        entCuenta Entcuenta = new entCuenta();
 
-                decimal Descuento = descuento / 100;
-                decimal Total = Monto - Descuento;
+        //        EntCliente.idCliente = Cliente;
+        //        EntmetodoPago.IdMetodo = Metodo;
+        //        Entcuenta.IdCuenta = idCuenta;
 
-                transacción.Descuento = Descuento;
-                transacción.MontoTotal = Total;
-                transacción.EstadoTransaccion = "EN ESPERA";
-                var respuesta = _datos.CrearTransaccions(transacción);
 
-                if (respuesta)
-                {
-                    return RedirectToAction("Listar");
-                }
-            }
-           return View();
-        }
+        //        transacción.IdPersona = EntCliente;
+        //        transacción.IdMetodo = EntmetodoPago;
+        //        transacción.IdCuenta = Entcuenta;
+        //        transacción.MontoBruto = Monto;
+
+        //        decimal Descuento = descuento / 100;
+        //        decimal Total = Monto - Descuento;
+
+        //        transacción.Descuento = Descuento;
+        //        transacción.MontoTotal = Total;
+        //        transacción.EstadoTransaccion = "EN ESPERA";
+        //        var respuesta = _datos.CrearTransaccion(transacción);
+
+        //        if (respuesta)
+        //        {
+        //            return RedirectToAction("Listar");
+        //        }
+        //    }
+        //   return View();
+        //}
     }
 }
