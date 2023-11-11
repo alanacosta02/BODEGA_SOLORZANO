@@ -130,6 +130,7 @@ namespace BODEGA_SOLORZANO.Datos
 
                                 entProveedor proveedor = new entProveedor
                                 {
+                                    IdProveedor = Convert.ToInt32(dr["idProveedor"]),
                                     RazonSocial = dr["razonSocial"].ToString()
                                 };
 

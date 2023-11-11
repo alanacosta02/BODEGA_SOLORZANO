@@ -32,8 +32,7 @@ namespace BODEGA_SOLORZANO.Controllers
 
         public IActionResult Guardar(entProducto Producto,int categoria, IFormFile RutaImagen)
         {
-            if (ModelState.IsValid)
-            {
+
                 if (RutaImagen != null && RutaImagen.Length > 0)
                 {
                     // Define la ruta donde se guardará la imagen dentro de wwwroot
@@ -55,10 +54,9 @@ namespace BODEGA_SOLORZANO.Controllers
                 if (respuesta)
                 {
 
-                    return RedirectToAction("Listar");
+                    return RedirectToAction("Index");
 
                 }
-            }
             // En caso de que ModelState.IsValid sea falso, regresa la vista actual con el modelo
             return View();
         }
@@ -68,25 +66,6 @@ namespace BODEGA_SOLORZANO.Controllers
         {
             List<entProveedorProducto> producto = logProveedorProducto.Instancia.ListarProductosCompra();
             return View(producto);
-        }
-        public IActionResult AgregarProductoCompra(int idProducto, string nombre, int cantidad)
-        {
-            try
-            {             
-                entCarrito carrito = new();
-                carrito.IdProducto = idProducto;
-                carrito.Producto = nombre;
-                ClaimsPrincipal claimUser = HttpContext.User;
-                string id = claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value;
-                carrito.IdUsuario = Convert.ToInt32(id);
-                carrito.Cantidad = cantidad;
-                logCarrito.Instancia.AgregarCarrito(carrito);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return RedirectToAction("ProductosCompra");
         }
         public IActionResult ProductosVenta()
         {
@@ -102,7 +81,49 @@ namespace BODEGA_SOLORZANO.Controllers
             ClaimsPrincipal claimUser = HttpContext.User;
             string id = claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value;
             var listaProductos = logCarrito.Instancia.ListarCarrito(Convert.ToInt32(id));
+            if (listaProductos == null)
+            {
+                listaProductos = new List<entCarrito>();
+            }
             return View(listaProductos);
+        }
+        public IActionResult AgregarProductoCompra(int idProducto, int idProveedor, string nombre, int cantidad)
+        {
+            try
+            {
+                entCarrito carrito = new()
+                {
+                    IdProducto = idProducto,
+                    IdProveedor = idProveedor,
+                    Producto = nombre
+                };
+                ClaimsPrincipal claimUser = HttpContext.User;
+                string id = claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value;
+                carrito.IdUsuario = Convert.ToInt32(id);
+                if (cantidad <= 0)
+                {
+                    throw new Exception("La cantidad debe ser mayor a 0");
+                }
+                carrito.Cantidad = cantidad;
+                logCarrito.Instancia.AgregarCarrito(carrito);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+            return RedirectToAction("ProductosCompra");
+        }
+        public IActionResult EliminarProductoCompra(int idCarrito)
+        {
+            try
+            {
+                logCarrito.Instancia.EliminarCarrito(idCarrito);
+            }
+            catch
+            {
+                throw;
+            }
+            return RedirectToAction("CarritoCompra");
         }
     }
 }

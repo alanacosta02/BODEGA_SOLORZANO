@@ -20,13 +20,17 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
                     {
                         throw new Exception("El producto ya existe en el carrito");
                     }
+                    if (item.IdProveedor != carrito.IdProveedor)
+                    {
+                        throw new Exception("No se puede agregar productos de distintos proveedores");
+                    }
                 }
                 lsCarrito.Add(carrito);
                 return true;
             }
             catch
             {
-                return false;
+                throw;
             }
         }
 

@@ -11,29 +11,18 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
         {
             return datTransaccion.Instancia.ListarTransacciones();
         }
-        public bool CrearTransaccion(entTransacción trans, List<entDetalleTransaccion> lsProducto)
+        public bool CrearTransaccion(List<entCarrito> lsCarrito, string tipoTransaccion)
         {
             try
             {
-                if (trans == null)
-                {
-                       throw new ArgumentException("La transaccion no puede ser nula");
-                }
-                if (lsProducto == null)
-                {
-                    throw new ArgumentException("La lista de productos no puede ser nula");
-                }
-                if (lsProducto.Count == 0)
-                {
-                    throw new ArgumentException("La lista de productos no puede estar vacia");
-                }
-                if (trans.TipoTransaccion != "Compra" || trans.TipoTransaccion != "Venta" || trans.TipoTransaccion != "Pedido")
-                {
-                    throw new ArgumentException("El tipo de transaccion no es valido");
-                }
+                List<entDetalleTransaccion> lsProducto = new List<entDetalleTransaccion>();
+                var transaccion = new entTransacción();
+                transaccion.CodTransaccion = "T" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                transaccion.TipoTransaccion = tipoTransaccion;
+                transaccion.Descuento = 0;
 
                 int id = 0;
-                id = datTransaccion.Instancia.CrearTranssacion(trans);
+                //id = datTransaccion.Instancia.CrearTranssacion(trans);
 
                 if (id > 0)
                 {
@@ -58,7 +47,7 @@ namespace BODEGA_SOLORZANO.LogicaNegocio
             return true;
         }
 
-        public bool CrearDetalleCompra(List<entDetalleTransaccion> lsProducto)
+        private bool CrearDetalleCompra(List<entDetalleTransaccion> lsProducto)
         {
             return datTransaccion.Instancia.CrearDetalleTransaccion(lsProducto);
         }

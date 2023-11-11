@@ -13,6 +13,16 @@
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder">Productos para la compra</h2>
         <a href="@Url.Action("CarritoCompra", "Producto")" type="button" class="btn btn-success m-4">Ver productos agregados</a>
+        <hr>
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["Error"]
+            </div>
+        }
+        <div class="mb-4">
+            Ten en cuenta que no está permitido agregar productos de diferentes proveedores en una misma compra.
+        </div>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">           
             @foreach (var item in Model)
             {
@@ -51,10 +61,11 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><button type="submit" class="btn btn-outline-dark mt-auto">Agregar a la compra</button></div>
+                                <div class="text-center"><button type="submit" class="btn btn-info mt-auto">Agregar a la compra</button></div>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="idProveedor" value="@item.Proveedor.IdProveedor" />
                     <input type="hidden" name="idProducto" value="@item.Producto.IdProducto" />
                     <input type="hidden" name="nombre" value="@item.Producto.Nombre" />
                 </form>

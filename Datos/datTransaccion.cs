@@ -137,7 +137,6 @@ namespace BODEGA_SOLORZANO.Datos
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@cantidad", producto.Cantidad);
                     cmd.Parameters.AddWithValue("@subTotal", producto.SubTotal);
-                    cmd.Parameters.AddWithValue("@unidadMedida", producto.UnidadMedida);
                     cmd.Parameters.AddWithValue("@idProducto", producto.Producto.IdProducto);
                     cmd.Parameters.AddWithValue("@idTransaccion", producto.Transaccion.IdTransaccion);
 

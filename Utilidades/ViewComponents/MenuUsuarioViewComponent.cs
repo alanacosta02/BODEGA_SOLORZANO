@@ -16,7 +16,7 @@ namespace SISTEMA_WEB.Utilidades.ViewComponents
             {
                 nombreUsuario = claimUser.Claims.Where(c => c.Type == ClaimTypes.Name)
                     .Select(c => c.Value).SingleOrDefault();
-                
+               
             }
 
             ViewData["nombreUsuario"] = nombreUsuario;

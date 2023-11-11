@@ -11,9 +11,6 @@ namespace BODEGA_SOLORZANO.Models.BoSolor
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^\d+$", ErrorMessage = "formato incorrecto para el sub total")]
         public decimal SubTotal;
-
-        public string UnidadMedida { get; set; }
-
         public entTransacción Transaccion { get; set; }
         public int IdTransaccion { get; set; }
         public entProducto Producto { get; set; }
